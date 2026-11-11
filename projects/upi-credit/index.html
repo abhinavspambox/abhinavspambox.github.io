@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UPI × Credit</title>
+<meta name="description" content="NPCI UPI data, Jan–Oct 2026: everyday spending lives on UPI. A 'credit on QR' proposition for a premium card issuer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{color-scheme:light}
+/* Layout: single reading column, statement-style data panels in mono; ink + cobalt with a signal amber */
+:root{
+  --bg:#f3f5f9; --surface:#ffffff; --ink:#111a2e; --muted:#566079; --line:#d9deea;
+  --accent:#2747d0; --accent-soft:#e3e8fb; --signal:#c77700; --signal-soft:#fbefd9; --good:#13795b;
+  --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem; --s8:4.5rem;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark }
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; margin:0;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:1040px; margin:0 auto}
+h1,h2,h3{font-family:var(--f-display); line-height:1.12; text-wrap:balance; margin:0; letter-spacing:-.015em}
+h1{font-size:clamp(2.2rem, 5.5vw, 3.6rem); font-weight:700}
+h2{font-size:clamp(1.6rem, 3.4vw, 2.2rem); font-weight:650}
+h3{font-size:1.25rem; font-weight:650}
+p{margin:0; max-width:65ch}
+a{color:var(--accent); text-underline-offset:3px}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+.eyebrow{font-family:var(--f-mono); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.mono{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+section{padding-block:var(--s8) 0}
+.sec-head{display:grid; gap:var(--s3); margin-bottom:var(--s6)}
+.chip{display:inline-flex; align-items:center; gap:.35em; font-family:var(--f-mono); font-size:.72rem; letter-spacing:.04em;
+  padding:.2rem .55rem; border-radius:999px; border:1px solid var(--line); color:var(--muted); background:var(--surface); white-space:nowrap}
+.chip.work{border-color:transparent; background:var(--accent-soft); color:var(--accent)}
+.chip.learn{border-color:transparent; background:var(--signal-soft); color:var(--signal)}
+.btn{display:inline-flex; align-items:center; gap:.4rem; font:600 .92rem var(--f-body); padding:.6rem 1rem; border-radius:8px;
+  border:1px solid var(--accent); background:var(--accent); color:var(--bg); text-decoration:none; cursor:pointer}
+.btn.ghost{background:transparent; color:var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.chart{width:100%; height:auto; display:block}
+.chart text{fill:var(--muted); font-family:var(--f-mono); font-size:11px}
+.chart .grid{stroke:var(--line); stroke-width:1}
+.src{font-size:.8rem; color:var(--muted)}
+footer{padding-block:var(--s7); margin-top:var(--s8); border-top:1px solid var(--line); color:var(--muted); font-size:.85rem}
+@media (prefers-reduced-motion: no-preference){ .rise{animation:rise .6s ease-out both} @keyframes rise{from{transform:translateY(8px)}to{transform:none}} }
+
+:root{padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+.back{display:inline-block; padding-block:var(--s5); color:var(--muted); text-decoration:none; font-size:.92rem}
+.back:hover{color:var(--ink)}
+.phead{display:grid; gap:var(--s4); padding-block:var(--s4) var(--s6); border-bottom:1px solid var(--line)}
+.phead .lede{font-size:1.12rem; color:var(--muted)}
+.kpis{display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:var(--s5); padding-block:var(--s6)}
+.kpi{display:grid; gap:var(--s1); align-content:start}
+.kpi b{font-family:var(--f-mono); font-size:1.7rem; font-weight:600; color:var(--accent); line-height:1.1; font-variant-numeric:tabular-nums}
+.kpi.warn b{color:var(--signal)}
+.kpi span{font-size:.86rem; color:var(--muted)}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:var(--s5); display:grid; gap:var(--s3); min-width:0}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:var(--s5)}
+.prose{display:grid; gap:var(--s4)}
+.prose h2{margin-top:var(--s7)}
+.prose ul, .prose ol{margin:0; padding-left:1.2rem; display:grid; gap:var(--s2); max-width:68ch}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:.92rem; min-width:520px}
+th, td{text-align:left; padding:.6rem .7rem; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600}
+td.num{font-family:var(--f-mono); font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+.callout{border-left:3px solid var(--signal); background:var(--signal-soft); padding:var(--s4) var(--s5); border-radius:0 8px 8px 0; max-width:72ch}
+.story{font-family:var(--f-mono); font-size:.88rem; background:var(--accent-soft); padding:var(--s3) var(--s4); border-radius:8px}
+@media (max-width:760px){ .grid2{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../../index.html">← Back to portfolio</a>
+  <header class="phead">
+    <div class="eyebrow">Project 02 · Payments strategy · NPCI UPI statistics, Jan–Oct 2026</div>
+    <h1>Everyday spending lives on the QR code. Where does that leave the credit card?</h1>
+    <p class="lede">UPI keeps setting records while its average payment gets smaller. Credit cards win the large purchases; UPI wins the daily habit. This project measures the split and designs a product that lets a premium issuer take part in small-ticket spending.</p>
+  </header>
+  <div class="kpis"><div class="kpi"><b>25.47 bn</b><span>UPI transactions, Oct 2026 (record)</span></div><div class="kpi"><b>₹31.53 L cr</b><span>UPI value, Oct 2026</span></div><div class="kpi warn"><b>₹1,238</b><span>average UPI payment, Oct 2026</span></div><div class="kpi warn"><b>~14×</b><span>UPI value vs all card spend, monthly</span></div></div>
+  
+  <div class="grid2">
+    <div class="panel"><h3>UPI transactions per month</h3><p class="src">Billions</p><div id="a"></div></div>
+    <div class="panel"><h3>Average UPI payment</h3><p class="src">₹ per transaction = monthly value ÷ monthly volume</p><div id="b"></div></div>
+  </div>
+  <div class="prose">
+    <h2>What the data shows</h2>
+    <ul>
+      <li><b>Frequency belongs to UPI.</b> Monthly volume rose 17.4% from January to October 2026, from 21.70 to 25.47 billion transactions. Value grew more slowly, 11.3%.</li>
+      <li><b>Payments are getting smaller.</b> The average UPI payment fell from ₹1,306 in January to ₹1,238 in October, as everyday purchases move to QR.</li>
+      <li><b>The value gap is large.</b> In every month from January to September 2026, UPI moved 13.5 to 15.2 times the value of all credit card spending.</li>
+      <li><b>Credit is already arriving on UPI.</b> RuPay credit cards on UPI carried about 38% of credit card transactions by volume but only around 8% by value (Bernstein, October 2025). Only RuPay credit cards can be linked to UPI today.</li>
+      <li><b>Share is shifting.</b> UPI's share of digital merchant payment value rose to 77.3% in July 2026 from 74.9% a year earlier, while credit cards slipped to 17.7% from 19.8% (Equirus).</li>
+    </ul>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Month 2026</th><th style="text-align:right">UPI value (₹ L cr)</th><th style="text-align:right">Card spend (₹ L cr)</th><th style="text-align:right">UPI ÷ cards</th></tr></thead>
+      <tbody id="ratio"></tbody>
+    </table></div>
+
+    <h2>The user problem</h2>
+    <p><b>Persona: Rohan, 34, consultant, Gurugram.</b> He holds a premium travel card on a global network for flights and hotels. Every day he also makes ten or more small payments by scanning QR codes from his savings account. Those payments earn no rewards, don't use his credit limit and never show up for his card issuer.</p>
+    <p>For a premium issuer, Rohan's daily habit is invisible. The issuer sees a few large transactions a month and loses the frequency that builds loyalty.</p>
+
+    <h2>The product: a "credit on QR" companion</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Element</th><th>Design choice</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Companion RuPay credit</td><td>A virtual RuPay credit card issued on the same credit limit as the primary card, linked to UPI in two taps.</td><td>RuPay is the only credit network allowed on UPI.</td></tr>
+        <tr><td>Small-spend rewards</td><td>Flat points on QR payments, capped each month, that pool into the primary card's rewards.</td><td>Builds frequency without unlimited reward cost.</td></tr>
+        <tr><td>One statement</td><td>Primary and companion spends on one bill, one due date, one app view.</td><td>No extra complexity for the customer.</td></tr>
+        <tr><td>Spend controls</td><td>Per-transaction and monthly caps for QR payments, set by the customer.</td><td>Reduces fraud exposure and over-spending.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="story">As a premium cardholder, I want my daily QR payments to earn the same rewards as my card, so that I don't have to choose between convenience and value.</p>
+
+    <h2>The economics to test</h2>
+    <ul>
+      <li>RuPay credit card payments on UPI under ₹2,000 at smaller merchants carry no merchant discount rate, so the issuer earns little from each small payment.</li>
+      <li>The case rests on second-order value: higher engagement, more revolving balances from customers who choose to revolve, and lower churn of high-value customers.</li>
+      <li>NPCI deferred a planned merchant charge on select UPI transactions until after Diwali 2026. Any change in UPI merchant pricing changes this model, so I would build it to update with fee assumptions.</li>
+    </ul>
+
+    <h2>Success metrics</h2>
+    <ul>
+      <li><b>North star:</b> monthly active days per customer across both cards.</li>
+      <li><b>Input metrics:</b> companion activation rate, QR transactions per active companion, share of customer's monthly spend on the issuer.</li>
+      <li><b>Guardrails:</b> reward cost per transaction, fraud loss rate, delinquency on companion spend.</li>
+    </ul>
+
+    <h2>Risks and trade-offs</h2>
+    <ul>
+      <li>A second card can confuse customers. The companion must stay invisible except in the UPI app.</li>
+      <li>Network partnerships take time. An issuer without RuPay issuance needs a partner bank or a co-brand.</li>
+      <li>Rewards on tiny payments can cost more than they earn. Caps and a points floor protect the unit economics.</li>
+    </ul>
+
+    <h2 id="discovery">Discovery plan</h2>
+    <p>The proposal assumes premium cardholders want rewards on small QR payments. That is the riskiest belief, so I would test it first, with 8 people who hold a premium card and use UPI daily.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>I believe</th><th>How I'll test it</th><th>What would change my mind</th></tr></thead>
+      <tbody>
+        <tr><td>Premium cardholders would move daily QR spends to credit for rewards</td><td>Interviews plus a fake-door test: an in-app "Link to UPI" button that counts taps</td><td>Fewer than 1 in 10 people who see the button tap it</td></tr>
+        <tr><td>A second card number is acceptable if it lives only in the UPI app</td><td>Show two concept screens; ask which they'd turn on</td><td>Most reject any second card</td></tr>
+        <tr><td>Spend caps reduce fraud worry more than they annoy</td><td>Ask people to set their own cap in a prototype</td><td>Most leave caps off or call them a hassle</td></tr>
+      </tbody>
+    </table></div>
+    <p class="src">Research status: not yet run.</p>
+
+    <h2>Method</h2>
+    <p>Monthly UPI volume and value for January–October 2026 come from NPCI releases as reported in the press. I derived average ticket size and the ratio of UPI value to RBI-reported card spend. The data (each row with its source link) and the script are in this folder; the SQL version is in the <a href="../../sql/index.html">data workbench</a>.</p>
+  </div>
+
+  <footer>
+    <p>Built by Abhinav Kumar Tarkar as a portfolio project. Data: NPCI monthly UPI statistics as reported by Angel One, Outlook Money, Entrepreneur and Lokmat; RBI card data; Bernstein via Mint; Equirus Securities via Kotak Neo. Files in this folder: <span class="mono">data.csv</span>, <span class="mono">analysis.py</span>.</p>
+  </footer>
+</div>
+<script>
+/* Tiny dependency-free SVG charts. Colors come from CSS tokens so both themes work. */
+(function(){
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, parent){ var n=document.createElementNS(NS, tag); for(var k in attrs){ n.setAttribute(k, attrs[k]); } if(parent) parent.appendChild(n); return n; }
+  function txt(parent, x, y, s, anchor){ var t=el("text",{x:x,y:y,"text-anchor":anchor||"start"},parent); t.textContent=s; return t; }
+  function niceTicks(min, max, n){
+    var span=max-min||1, step=Math.pow(10, Math.floor(Math.log10(span/n))), err=span/n/step;
+    if(err>=7.5) step*=10; else if(err>=3.5) step*=5; else if(err>=1.5) step*=2;
+    var lo=Math.floor(min/step)*step, hi=Math.ceil(max/step)*step, out=[];
+    for(var v=lo; v<=hi+step/2; v+=step) out.push(+v.toFixed(6));
+    return out;
+  }
+  function fitW(host, o){ return o.width || Math.min(640, Math.max(300, host.clientWidth || 640)); }
+  function svgFor(host, w, h, label){ host.innerHTML=""; return el("svg",{viewBox:"0 0 "+w+" "+h, class:"chart", role:"img", "aria-label":label||""}, host); }
+
+  window.lineChart = function(host, o){
+    var W=fitW(host,o), H=o.height||260, m={t:16,r:o.right||60,b:28,l:o.left||44};
+    var all=[]; o.series.forEach(function(s){ all=all.concat(s.values); });
+    var ticks=niceTicks(o.min!=null?o.min:Math.min.apply(null,all), o.max!=null?o.max:Math.max.apply(null,all), o.ticks||4);
+    var y0=ticks[0], y1=ticks[ticks.length-1], n=o.labels.length;
+    var X=function(i){ return m.l + i*(W-m.l-m.r)/(n-1); }, Y=function(v){ return H-m.b - (v-y0)/(y1-y0)*(H-m.t-m.b); };
+    var svg=svgFor(host,W,H,o.label);
+    ticks.forEach(function(t){ el("line",{x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t),class:"grid"},svg); txt(svg,m.l-8,Y(t)+4,(o.fmt||String)(t),"end"); });
+    o.labels.forEach(function(l,i){ if(n<=10 || i%2===0) txt(svg,X(i),H-8,l,"middle"); });
+    o.series.forEach(function(s){
+      var d=s.values.map(function(v,i){ return (i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1); }).join(" ");
+      if(s.area){ el("path",{d:d+" L"+X(n-1)+" "+(H-m.b)+" L"+X(0)+" "+(H-m.b)+" Z", style:"fill:var("+s.color+");opacity:.10"},svg); }
+      el("path",{d:d, style:"fill:none;stroke:var("+s.color+");stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round"+(s.dash?";stroke-dasharray:5 5":"")},svg);
+      var lv=s.values[n-1];
+      el("circle",{cx:X(n-1),cy:Y(lv),r:4.5,style:"fill:var("+s.color+");stroke:var(--surface);stroke-width:2"},svg);
+      var t=txt(svg,X(n-1)+8,Y(lv)+4,(s.endFmt||o.fmt||String)(lv)); t.setAttribute("style","fill:var("+s.color+");font-weight:600");
+    });
+  };
+
+  window.barChart = function(host, o){
+    var W=fitW(host,o), H=o.height||240, m={t:22,r:12,b:28,l:o.left||40};
+    var ticks=niceTicks(0, Math.max.apply(null,o.values), o.ticks||4), y1=ticks[ticks.length-1], n=o.values.length;
+    var bw=(W-m.l-m.r)/n, Y=function(v){ return H-m.b - v/y1*(H-m.t-m.b); };
+    var svg=svgFor(host,W,H,o.label);
+    ticks.forEach(function(t){ el("line",{x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t),class:"grid"},svg); txt(svg,m.l-8,Y(t)+4,(o.fmt||String)(t),"end"); });
+    o.values.forEach(function(v,i){
+      var hot = o.highlight!=null ? o.highlight===i : i===n-1;
+      el("rect",{x:m.l+i*bw+bw*.18, y:Y(v), width:bw*.64, height:H-m.b-Y(v), rx:3, style:"fill:var("+(hot?"--accent":"--line")+")"},svg);
+      if(hot || o.labelAll){ var t=txt(svg,m.l+i*bw+bw/2,Y(v)-6,(o.valFmt||o.fmt||String)(v),"middle"); if(hot) t.setAttribute("style","fill:var(--accent);font-weight:600"); }
+      txt(svg,m.l+i*bw+bw/2,H-8,o.labels[i],"middle");
+    });
+  };
+
+  window.hbarChart = function(host, o){
+    var W=fitW(host,o), rowH=o.rowH||40, lw=o.labelW||210, H=o.values.length*rowH+8, max=o.max||Math.max.apply(null,o.values);
+    var svg=svgFor(host,W,H,o.label);
+    o.values.forEach(function(v,i){
+      var y=i*rowH+6, hot=o.highlight===i, bw=(W-lw-70)*v/max;
+      var lt=txt(svg,0,y+rowH/2+1,o.labels[i]); lt.setAttribute("style","fill:var("+(hot?"--ink":"--muted")+");font-family:var(--f-body);font-size:13px"+(hot?";font-weight:600":""));
+      el("rect",{x:lw,y:y+6,width:W-lw-70,height:rowH-18,rx:3,style:"fill:var(--line);opacity:.45"},svg);
+      el("rect",{x:lw,y:y+6,width:Math.max(bw,2),height:rowH-18,rx:3,style:"fill:var("+(hot?"--signal":"--accent")+")"},svg);
+      var t=txt(svg,lw+bw+8,y+rowH/2+1,(o.fmt||String)(v)); t.setAttribute("style","fill:var("+(hot?"--signal":"--ink")+");font-weight:600");
+    });
+  };
+})();
+
+
+var m=["J","F","M","A","M","J","J","A","S","O"];
+var vol=[21.70,20.39,22.64,22.35,23.20,22.72,23.66,24.51,24.07,25.47];
+var val=[28.33,26.84,29.53,29.03,29.90,28.92,29.88,29.82,29.37,31.53];
+var card=[2.00,1.77,2.19,1.97,2.02,2.01,2.08,2.02,2.04];
+var tkt=val.map(function(v,i){return Math.round(v*1e12/(vol[i]*1e9));});
+barChart(document.getElementById("a"),{labels:m,values:vol,fmt:function(v){return v;},valFmt:function(v){return v.toFixed(2);},label:"UPI transactions in billions"});
+lineChart(document.getElementById("b"),{labels:m,series:[{values:tkt,color:"--signal",area:true}],min:1150,max:1350,left:52,fmt:function(v){return "₹"+v.toLocaleString("en-IN");},label:"Average UPI payment in rupees"});
+var names=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"], tb=document.getElementById("ratio");
+card.forEach(function(c,i){ tb.insertAdjacentHTML("beforeend","<tr><td>"+names[i]+"</td><td class='num'>"+val[i].toFixed(2)+"</td><td class='num'>"+c.toFixed(2)+"</td><td class='num'>"+(val[i]/c).toFixed(1)+"×</td></tr>"); });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SQL Data Workbench</title>
+<meta name="description" content="The portfolio's RBI and NPCI datasets in SQLite, with six queries and their results.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{color-scheme:light}
+/* Layout: single reading column, statement-style data panels in mono; ink + cobalt with a signal amber */
+:root{
+  --bg:#f3f5f9; --surface:#ffffff; --ink:#111a2e; --muted:#566079; --line:#d9deea;
+  --accent:#2747d0; --accent-soft:#e3e8fb; --signal:#c77700; --signal-soft:#fbefd9; --good:#13795b;
+  --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem; --s8:4.5rem;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark }
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; margin:0;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:1040px; margin:0 auto}
+h1,h2,h3{font-family:var(--f-display); line-height:1.12; text-wrap:balance; margin:0; letter-spacing:-.015em}
+h1{font-size:clamp(2.2rem, 5.5vw, 3.6rem); font-weight:700}
+h2{font-size:clamp(1.6rem, 3.4vw, 2.2rem); font-weight:650}
+h3{font-size:1.25rem; font-weight:650}
+p{margin:0; max-width:65ch}
+a{color:var(--accent); text-underline-offset:3px}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+.eyebrow{font-family:var(--f-mono); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.mono{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+section{padding-block:var(--s8) 0}
+.sec-head{display:grid; gap:var(--s3); margin-bottom:var(--s6)}
+.chip{display:inline-flex; align-items:center; gap:.35em; font-family:var(--f-mono); font-size:.72rem; letter-spacing:.04em;
+  padding:.2rem .55rem; border-radius:999px; border:1px solid var(--line); color:var(--muted); background:var(--surface); white-space:nowrap}
+.chip.work{border-color:transparent; background:var(--accent-soft); color:var(--accent)}
+.chip.learn{border-color:transparent; background:var(--signal-soft); color:var(--signal)}
+.btn{display:inline-flex; align-items:center; gap:.4rem; font:600 .92rem var(--f-body); padding:.6rem 1rem; border-radius:8px;
+  border:1px solid var(--accent); background:var(--accent); color:var(--bg); text-decoration:none; cursor:pointer}
+.btn.ghost{background:transparent; color:var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.chart{width:100%; height:auto; display:block}
+.chart text{fill:var(--muted); font-family:var(--f-mono); font-size:11px}
+.chart .grid{stroke:var(--line); stroke-width:1}
+.src{font-size:.8rem; color:var(--muted)}
+footer{padding-block:var(--s7); margin-top:var(--s8); border-top:1px solid var(--line); color:var(--muted); font-size:.85rem}
+@media (prefers-reduced-motion: no-preference){ .rise{animation:rise .6s ease-out both} @keyframes rise{from{transform:translateY(8px)}to{transform:none}} }
+
+:root{padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+.back{display:inline-block; padding-block:var(--s5); color:var(--muted); text-decoration:none; font-size:.92rem}
+.back:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">← Back to portfolio</a>
+  
+<style>
+.q{display:grid; gap:var(--s3); padding-block:var(--s5); border-top:1px solid var(--line)}
+pre{margin:0; overflow-x:auto; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:var(--s4); font:13px/1.55 var(--f-mono); color:var(--ink)}
+.tablewrap{overflow-x:auto} table{border-collapse:collapse; width:100%; font-size:.9rem; min-width:420px}
+th,td{text-align:left; padding:.5rem .7rem; border-bottom:1px solid var(--line); white-space:nowrap} th{font:600 .72rem var(--f-mono); letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+td.num{font-family:var(--f-mono); font-variant-numeric:tabular-nums; text-align:right}
+.phead{display:grid; gap:var(--s4); padding-block:var(--s4) var(--s6)}
+</style>
+<header class="phead">
+  <div class="eyebrow">Data workbench · SQLite</div>
+  <h1>The project numbers, queried in SQL</h1>
+  <p class="muted" style="font-size:1.1rem">All three datasets loaded into one SQLite database, then queried with joins, CTEs and window functions. Every result below was produced by the query above it. To run it yourself: <span class="mono">python sql/run.py</span>, then open <span class="mono">portfolio.db</span> in any SQLite tool.</p>
+  <p class="src">Files: <span class="mono">schema.sql</span> (tables) · <span class="mono">queries.sql</span> (these six queries) · <span class="mono">run.py</span> (builds the database from the CSVs and runs them).</p>
+</header>
+<article class="q"><h3>Q1. Spend per card each month, and its month-on-month change</h3><pre><code>SELECT month,
+       ROUND(spend_inr_lakh_cr * 1e12 / (cards_outstanding_mn * 1e6)) AS spend_per_card_inr,
+       ROUND(100.0 * (spend_inr_lakh_cr / cards_outstanding_mn)
+             / LAG(spend_inr_lakh_cr / cards_outstanding_mn) OVER (ORDER BY month) - 100, 1) AS mom_change_pct
+FROM card_monthly
+ORDER BY month;</code></pre><div class="tablewrap"><table><thead><tr><th>month</th><th>spend_per_card_inr</th><th>mom_change_pct</th></tr></thead><tbody><tr><td>2026-01</td><td class="num">17,145</td><td class="num muted">—</td></tr><tr><td>2026-02</td><td class="num">15,038</td><td class="num">-12.3</td></tr><tr><td>2026-03</td><td class="num">18,461</td><td class="num">22.8</td></tr><tr><td>2026-04</td><td class="num">16,494</td><td class="num">-10.7</td></tr><tr><td>2026-05</td><td class="num">16,763</td><td class="num">1.6</td></tr><tr><td>2026-06</td><td class="num">16,530</td><td class="num">-1.4</td></tr><tr><td>2026-07</td><td class="num">16,930</td><td class="num">2.4</td></tr><tr><td>2026-08</td><td class="num">16,284</td><td class="num">-3.8</td></tr><tr><td>2026-09</td><td class="num">16,281</td><td class="num">-0</td></tr></tbody></table></div></article><article class="q"><h3>Q2. Net cards added each month (millions)</h3><pre><code>SELECT month,
+       cards_outstanding_mn,
+       ROUND(cards_outstanding_mn - LAG(cards_outstanding_mn) OVER (ORDER BY month), 2) AS net_added_mn
+FROM card_monthly
+ORDER BY month;</code></pre><div class="tablewrap"><table><thead><tr><th>month</th><th>cards_outstanding_mn</th><th>net_added_mn</th></tr></thead><tbody><tr><td>2026-01</td><td class="num">116.65</td><td class="num muted">—</td></tr><tr><td>2026-02</td><td class="num">117.7</td><td class="num">1.05</td></tr><tr><td>2026-03</td><td class="num">118.63</td><td class="num">0.93</td></tr><tr><td>2026-04</td><td class="num">119.44</td><td class="num">0.81</td></tr><tr><td>2026-05</td><td class="num">120.5</td><td class="num">1.06</td></tr><tr><td>2026-06</td><td class="num">121.6</td><td class="num">1.1</td></tr><tr><td>2026-07</td><td class="num">122.86</td><td class="num">1.26</td></tr><tr><td>2026-08</td><td class="num">124.05</td><td class="num">1.19</td></tr><tr><td>2026-09</td><td class="num">125.3</td><td class="num">1.25</td></tr></tbody></table></div></article><article class="q"><h3>Q3. Months where the card base grew but spend per card fell</h3><pre><code>WITH m AS (
+  SELECT month, cards_outstanding_mn,
+         spend_inr_lakh_cr / cards_outstanding_mn AS ppc,
+         LAG(cards_outstanding_mn) OVER (ORDER BY month) AS prev_cards,
+         LAG(spend_inr_lakh_cr / cards_outstanding_mn) OVER (ORDER BY month) AS prev_ppc
+  FROM card_monthly
+)
+SELECT month,
+       ROUND(cards_outstanding_mn - prev_cards, 2) AS cards_added_mn,
+       ROUND(100.0 * ppc / prev_ppc - 100, 1)      AS spend_per_card_change_pct
+FROM m
+WHERE cards_outstanding_mn &gt; prev_cards AND ppc &lt; prev_ppc
+ORDER BY month;</code></pre><div class="tablewrap"><table><thead><tr><th>month</th><th>cards_added_mn</th><th>spend_per_card_change_pct</th></tr></thead><tbody><tr><td>2026-02</td><td class="num">1.05</td><td class="num">-12.3</td></tr><tr><td>2026-04</td><td class="num">0.81</td><td class="num">-10.7</td></tr><tr><td>2026-06</td><td class="num">1.1</td><td class="num">-1.4</td></tr><tr><td>2026-08</td><td class="num">1.19</td><td class="num">-3.8</td></tr><tr><td>2026-09</td><td class="num">1.25</td><td class="num">-0</td></tr></tbody></table></div></article><article class="q"><h3>Q4. Issuer ranking by spend per card, April 2026</h3><pre><code>SELECT issuer,
+       ROUND(spend_inr_cr * 1e7 / (cards_outstanding_mn * 1e6)) AS spend_per_card_inr,
+       spend_yoy_pct,
+       RANK() OVER (ORDER BY spend_inr_cr / cards_outstanding_mn DESC) AS rank_by_spend_per_card
+FROM issuer_apr2026
+ORDER BY rank_by_spend_per_card;</code></pre><div class="tablewrap"><table><thead><tr><th>issuer</th><th>spend_per_card_inr</th><th>spend_yoy_pct</th><th>rank_by_spend_per_card</th></tr></thead><tbody><tr><td>HDFC Bank</td><td class="num">21,977</td><td class="num">12.34</td><td>1</td></tr><tr><td>SBI Card</td><td class="num">17,060</td><td class="num">28.98</td><td>2</td></tr><tr><td>ICICI Bank</td><td class="num">16,927</td><td class="num">-7.35</td><td>3</td></tr></tbody></table></div></article><article class="q"><h3>Q5. UPI average ticket and UPI value versus all card spend</h3><pre><code>SELECT u.month,
+       ROUND(u.upi_value_inr_lakh_cr * 1e12 / (u.upi_volume_bn * 1e9)) AS upi_avg_ticket_inr,
+       ROUND(u.upi_value_inr_lakh_cr / c.spend_inr_lakh_cr, 1)          AS upi_to_card_value_x
+FROM upi_monthly u
+LEFT JOIN card_monthly c ON c.month = u.month
+ORDER BY u.month;</code></pre><div class="tablewrap"><table><thead><tr><th>month</th><th>upi_avg_ticket_inr</th><th>upi_to_card_value_x</th></tr></thead><tbody><tr><td>2026-01</td><td class="num">1,306</td><td class="num">14.2</td></tr><tr><td>2026-02</td><td class="num">1,316</td><td class="num">15.2</td></tr><tr><td>2026-03</td><td class="num">1,304</td><td class="num">13.5</td></tr><tr><td>2026-04</td><td class="num">1,299</td><td class="num">14.7</td></tr><tr><td>2026-05</td><td class="num">1,289</td><td class="num">14.8</td></tr><tr><td>2026-06</td><td class="num">1,273</td><td class="num">14.4</td></tr><tr><td>2026-07</td><td class="num">1,263</td><td class="num">14.4</td></tr><tr><td>2026-08</td><td class="num">1,217</td><td class="num">14.8</td></tr><tr><td>2026-09</td><td class="num">1,220</td><td class="num">14.4</td></tr><tr><td>2026-10</td><td class="num">1,238</td><td class="num muted">—</td></tr></tbody></table></div></article><article class="q"><h3>Q6. Named complaint categories ranked, with running share (the residual &#x27;All other grounds&#x27; is excluded)</h3><pre><code>SELECT category,
+       share_pct,
+       RANK() OVER (ORDER BY share_pct DESC) AS rnk,
+       ROUND(SUM(share_pct) OVER (ORDER BY share_pct DESC ROWS UNBOUNDED PRECEDING), 2) AS running_share_pct
+FROM ombudsman_fy25
+WHERE category &lt;&gt; &#x27;All other grounds&#x27;
+ORDER BY rnk;</code></pre><div class="tablewrap"><table><thead><tr><th>category</th><th>share_pct</th><th>rnk</th><th>running_share_pct</th></tr></thead><tbody><tr><td>Loans and advances</td><td class="num">29.25</td><td>1</td><td class="num">29.25</td></tr><tr><td>Credit cards</td><td class="num">17.15</td><td>2</td><td class="num">46.4</td></tr><tr><td>Mobile / electronic banking</td><td class="num">16.86</td><td>3</td><td class="num">63.26</td></tr><tr><td>Deposit accounts</td><td class="num">16.84</td><td>4</td><td class="num">80.1</td></tr></tbody></table></div></article>
+  <footer><p>Built by Abhinav Kumar Tarkar as a portfolio project. Sample and public data only.</p></footer>
+</div>
+</body>
+</html>

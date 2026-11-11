@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>American Express India Case Study</title>
+<meta name="description" content="How a premium, closed-loop card company can grow in a market where everyday payments run on UPI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{color-scheme:light}
+/* Layout: single reading column, statement-style data panels in mono; ink + cobalt with a signal amber */
+:root{
+  --bg:#f3f5f9; --surface:#ffffff; --ink:#111a2e; --muted:#566079; --line:#d9deea;
+  --accent:#2747d0; --accent-soft:#e3e8fb; --signal:#c77700; --signal-soft:#fbefd9; --good:#13795b;
+  --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem; --s8:4.5rem;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark }
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; margin:0;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:1040px; margin:0 auto}
+h1,h2,h3{font-family:var(--f-display); line-height:1.12; text-wrap:balance; margin:0; letter-spacing:-.015em}
+h1{font-size:clamp(2.2rem, 5.5vw, 3.6rem); font-weight:700}
+h2{font-size:clamp(1.6rem, 3.4vw, 2.2rem); font-weight:650}
+h3{font-size:1.25rem; font-weight:650}
+p{margin:0; max-width:65ch}
+a{color:var(--accent); text-underline-offset:3px}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+.eyebrow{font-family:var(--f-mono); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.mono{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+section{padding-block:var(--s8) 0}
+.sec-head{display:grid; gap:var(--s3); margin-bottom:var(--s6)}
+.chip{display:inline-flex; align-items:center; gap:.35em; font-family:var(--f-mono); font-size:.72rem; letter-spacing:.04em;
+  padding:.2rem .55rem; border-radius:999px; border:1px solid var(--line); color:var(--muted); background:var(--surface); white-space:nowrap}
+.chip.work{border-color:transparent; background:var(--accent-soft); color:var(--accent)}
+.chip.learn{border-color:transparent; background:var(--signal-soft); color:var(--signal)}
+.btn{display:inline-flex; align-items:center; gap:.4rem; font:600 .92rem var(--f-body); padding:.6rem 1rem; border-radius:8px;
+  border:1px solid var(--accent); background:var(--accent); color:var(--bg); text-decoration:none; cursor:pointer}
+.btn.ghost{background:transparent; color:var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.chart{width:100%; height:auto; display:block}
+.chart text{fill:var(--muted); font-family:var(--f-mono); font-size:11px}
+.chart .grid{stroke:var(--line); stroke-width:1}
+.src{font-size:.8rem; color:var(--muted)}
+footer{padding-block:var(--s7); margin-top:var(--s8); border-top:1px solid var(--line); color:var(--muted); font-size:.85rem}
+@media (prefers-reduced-motion: no-preference){ .rise{animation:rise .6s ease-out both} @keyframes rise{from{transform:translateY(8px)}to{transform:none}} }
+
+:root{padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+.back{display:inline-block; padding-block:var(--s5); color:var(--muted); text-decoration:none; font-size:.92rem}
+.back:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html#cases">← Back to portfolio</a>
+  
+<style>
+.phead{display:grid; gap:var(--s4); padding-block:var(--s4) var(--s6); border-bottom:1px solid var(--line)}
+.phead .lede{font-size:1.12rem; color:var(--muted)}
+.answer{border-left:3px solid var(--accent); background:var(--accent-soft); padding:var(--s4) var(--s5); border-radius:0 8px 8px 0; max-width:72ch}
+.prose{display:grid; gap:var(--s4); padding-top:var(--s5)}
+.prose h2{margin-top:var(--s6)}
+.prose ul, .prose ol{margin:0; padding-left:1.2rem; display:grid; gap:var(--s2); max-width:68ch}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:.92rem; min-width:520px}
+th, td{text-align:left; padding:.6rem .7rem; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600}
+td.num{font-family:var(--f-mono); font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+.src{font-size:.82rem; color:var(--muted)}
+</style>
+
+<header class="phead">
+  <div class="eyebrow">Case study · Business · Global card network</div>
+  <h1>American Express in India: winning premium customers in a UPI-first market</h1>
+  <p class="lede">Everyday payments in India now run on UPI, a rail global card networks can't use for credit. What should a premium, closed-loop card company do?</p>
+</header>
+<div class="prose">
+  <p class="answer"><b>My answer:</b> win the top of the market on service and travel value, and partner for the QR moment instead of fighting it.</p>
+
+  <h2>What happened</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Date</th><th>Event</th></tr></thead>
+    <tbody>
+      <tr><td>Jul 2026</td><td>UPI carries 77.3% of digital merchant payment value; credit cards 17.7%, down from 19.8% a year earlier (Equirus, via <a href="https://www.kotakneo.com/investing-guide/insights/rupay-credit-card-upi-qr-india-festive-credit/">Kotak Neo</a>)</td></tr>
+      <tr><td>Oct 2025</td><td>RBI fines American Express Banking Corp ₹31.80 lakh for not refunding credit balances left on some cards after refunds or failed transactions (<a href="https://website.rbi.org.in/web/rbi/-/press-releases/rbi-imposes-monetary-penalty-on-american-express-banking-corp">RBI</a>)</td></tr>
+      <tr><td>Oct 2025</td><td>RuPay credit cards on UPI reach about 38% of all credit card transactions by volume, about 8% by value (Bernstein, via <a href="https://www.magzter.com/en/stories/newspaper/Mint-Mumbai/CREDIT-CARD-UPI-LIFTS-RUPAY-VOLUME-MKT-SHARE-TO-38">Mint</a>)</td></tr>
+      <tr><td>24 Aug 2022</td><td>RBI lifts the restriction after "satisfactory compliance" with data storage rules, about 15 months later (<a href="https://www.business-standard.com/amp/article/finance/rbi-lifts-business-restrictions-imposed-on-american-express-banking-corp-122082401129_1.html">Business Standard</a>)</td></tr>
+      <tr><td>Jun 2022</td><td>RBI lifts a similar restriction on Mastercard</td></tr>
+      <tr><td>2022</td><td>RBI allows RuPay credit cards, and only RuPay, to be linked to UPI</td></tr>
+      <tr><td>1 May 2021</td><td>RBI order of 23 April 2021 takes effect: no new domestic customers on the Amex network; existing customers keep being served</td></tr>
+      <tr><td>6 Apr 2018</td><td>RBI circular requires payment data to be stored only in India (compliance from October 2018)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>The structural problem</h2>
+  <ul>
+    <li><b>Amex runs a closed loop.</b> It issues the card, runs the network and signs up merchants. That gives it rich data and control of the experience, but it must build acceptance itself.</li>
+    <li><b>The everyday payment moved to the QR code.</b> Small, frequent spends happen on UPI, where only RuPay credit cards can run.</li>
+    <li><b>Regulation shapes the field.</b> Data localisation cost Amex 15 months of new customers. UPI exclusivity for RuPay keeps global networks out of the fastest-growing payment habit.</li>
+  </ul>
+
+  <h2>Options</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Option</th><th>Upside</th><th>Downside</th></tr></thead>
+    <tbody>
+      <tr><td>Double down on premium travel and lifestyle</td><td>Plays to Amex's brand and high spend per card</td><td>Small market; heavy reward cost</td></tr>
+      <tr><td>Co-brand with an Indian bank to issue a RuPay companion card for UPI</td><td>Gives Amex customers rewards on daily QR spends</td><td>Shares economics and the customer relationship</td></tr>
+      <tr><td>Push merchant acceptance in premium categories (travel, dining, luxury retail)</td><td>Fixes the "is Amex accepted here?" doubt</td><td>Slow and costly in a QR-first merchant base</td></tr>
+      <tr><td>Lead on servicing and dispute experience</td><td>Turns compliance into a selling point, after the 2025 penalty</td><td>Hard to market; benefits show slowly</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>My recommendation</h2>
+  <p>Combine the first two options: keep the premium core, and add a RuPay companion through a bank partner so cardholders earn points on daily QR spends. This is the same "credit on QR" product in my <a href="../projects/upi-credit/index.html">UPI × Credit project</a>. Back it with the servicing play: automatic credit-balance refunds and a visible dispute tracker, the fix behind my <a href="../projects/complaint-radar/prototype.html">dispute tracker prototype</a>.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Metric</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td>Share of cardholder's monthly spend captured</td><td>North star</td></tr>
+      <tr><td>Active days per month per cardholder</td><td>Engagement</td></tr>
+      <tr><td>Complaints per 10,000 cards</td><td>Guardrail</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">This case study uses public reporting only and is my own analysis. It does not reflect American Express's plans.</p>
+</div>
+
+  <footer><p>Built by Abhinav Kumar Tarkar as a portfolio project. Sample and public data only.</p></footer>
+</div>
+</body>
+</html>

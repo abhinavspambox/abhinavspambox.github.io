@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dispute Tracker Prototype</title>
+<meta name="description" content="Clickable prototype of an in-app credit card dispute tracker, with a 5-person usability test plan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{color-scheme:light}
+/* Layout: single reading column, statement-style data panels in mono; ink + cobalt with a signal amber */
+:root{
+  --bg:#f3f5f9; --surface:#ffffff; --ink:#111a2e; --muted:#566079; --line:#d9deea;
+  --accent:#2747d0; --accent-soft:#e3e8fb; --signal:#c77700; --signal-soft:#fbefd9; --good:#13795b;
+  --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem; --s8:4.5rem;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark }
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; margin:0;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:1040px; margin:0 auto}
+h1,h2,h3{font-family:var(--f-display); line-height:1.12; text-wrap:balance; margin:0; letter-spacing:-.015em}
+h1{font-size:clamp(2.2rem, 5.5vw, 3.6rem); font-weight:700}
+h2{font-size:clamp(1.6rem, 3.4vw, 2.2rem); font-weight:650}
+h3{font-size:1.25rem; font-weight:650}
+p{margin:0; max-width:65ch}
+a{color:var(--accent); text-underline-offset:3px}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+.eyebrow{font-family:var(--f-mono); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.mono{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+section{padding-block:var(--s8) 0}
+.sec-head{display:grid; gap:var(--s3); margin-bottom:var(--s6)}
+.chip{display:inline-flex; align-items:center; gap:.35em; font-family:var(--f-mono); font-size:.72rem; letter-spacing:.04em;
+  padding:.2rem .55rem; border-radius:999px; border:1px solid var(--line); color:var(--muted); background:var(--surface); white-space:nowrap}
+.chip.work{border-color:transparent; background:var(--accent-soft); color:var(--accent)}
+.chip.learn{border-color:transparent; background:var(--signal-soft); color:var(--signal)}
+.btn{display:inline-flex; align-items:center; gap:.4rem; font:600 .92rem var(--f-body); padding:.6rem 1rem; border-radius:8px;
+  border:1px solid var(--accent); background:var(--accent); color:var(--bg); text-decoration:none; cursor:pointer}
+.btn.ghost{background:transparent; color:var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.chart{width:100%; height:auto; display:block}
+.chart text{fill:var(--muted); font-family:var(--f-mono); font-size:11px}
+.chart .grid{stroke:var(--line); stroke-width:1}
+.src{font-size:.8rem; color:var(--muted)}
+footer{padding-block:var(--s7); margin-top:var(--s8); border-top:1px solid var(--line); color:var(--muted); font-size:.85rem}
+@media (prefers-reduced-motion: no-preference){ .rise{animation:rise .6s ease-out both} @keyframes rise{from{transform:translateY(8px)}to{transform:none}} }
+
+:root{padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+.back{display:inline-block; padding-block:var(--s5); color:var(--muted); text-decoration:none; font-size:.92rem}
+.back:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Back to Complaint Radar</a>
+  <style>
+.proto-wrap{display:grid; grid-template-columns:400px 1fr; gap:var(--s7); align-items:start; padding-block:var(--s6)}
+.proto-wrap > *{min-width:0}
+.phone{width:100%; max-width:380px; margin:0 auto; border:10px solid var(--ink); border-radius:36px; background:var(--bg); overflow:hidden; box-shadow:0 30px 60px -35px rgba(17,26,46,.55)}
+section.screen{min-height:640px; display:flex; flex-direction:column; padding-block:0}
+.bar{display:flex; align-items:center; gap:var(--s3); padding:var(--s4); border-bottom:1px solid var(--line); background:var(--surface)}
+.bar b{font-family:var(--f-display); font-size:1.05rem}
+.bar button{border:0; background:none; color:var(--accent); font:600 .95rem var(--f-body); cursor:pointer; padding:0}
+.sbody{padding:var(--s4); display:grid; gap:var(--s4); align-content:start; flex:1}
+.cardface{border-radius:14px; padding:var(--s4); background:var(--ink); color:var(--bg); display:grid; gap:var(--s2)}
+.cardface .mono{font-size:.8rem; opacity:.8}
+.cardface b{font-family:var(--f-mono); font-size:1.5rem}
+.banner{display:grid; gap:var(--s2); padding:var(--s3) var(--s4); border-radius:10px; background:var(--signal-soft); font-size:.9rem}
+.row{display:flex; justify-content:space-between; align-items:center; gap:var(--s3); padding:var(--s3) var(--s4); border:1px solid var(--line); border-radius:10px; background:var(--surface); font-size:.92rem; text-align:left; color:var(--ink); width:100%; font-family:var(--f-body); cursor:pointer}
+.row small{display:block; color:var(--muted); font-size:.8rem}
+.row .amt{font-family:var(--f-mono); white-space:nowrap}
+.pill{font:600 .72rem var(--f-mono); padding:.15rem .5rem; border-radius:999px; background:var(--accent-soft); color:var(--accent); white-space:nowrap}
+.pill.late{background:var(--signal-soft); color:var(--signal)}
+.pill.ok{background:color-mix(in srgb, var(--good) 15%, transparent); color:var(--good)}
+.stages{list-style:none; margin:0; padding:0; display:grid}
+.stages li{display:grid; grid-template-columns:22px 1fr; gap:var(--s3); padding-bottom:var(--s4); position:relative}
+.stages li::before{content:""; position:absolute; left:10px; top:22px; bottom:0; width:2px; background:var(--line)}
+.stages li:last-child::before{display:none}
+.dot{width:22px; height:22px; border-radius:50%; border:2px solid var(--line); background:var(--surface); display:grid; place-items:center; font-size:.7rem; color:var(--bg)}
+.done .dot{background:var(--good); border-color:var(--good)}
+.now .dot{border-color:var(--accent); box-shadow:0 0 0 4px var(--accent-soft)}
+.stages small{display:block; color:var(--muted); font-size:.8rem}
+.sla{display:flex; justify-content:space-between; align-items:center; gap:var(--s3); padding:var(--s3) var(--s4); border-radius:10px; background:var(--accent-soft); font-size:.9rem}
+.sla.late{background:var(--signal-soft)}
+.sla b{font-family:var(--f-mono)}
+.chips{display:flex; flex-wrap:wrap; gap:var(--s2)}
+.chips button{font:500 .85rem var(--f-body); padding:.45rem .8rem; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer}
+.chips button[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.full{width:100%; justify-content:center}
+.note{font-size:.82rem; color:var(--muted)}
+.tests{display:grid; gap:var(--s4)}
+.tests ol{margin:0; padding-left:1.2rem; display:grid; gap:var(--s3)}
+.toggle{display:flex; gap:var(--s3); align-items:center; flex-wrap:wrap; font-size:.9rem}
+@media (max-width:860px){ .proto-wrap{grid-template-columns:1fr} }
+</style>
+
+<div class="proto-wrap">
+  <div>
+    <div class="phone" aria-label="Clickable prototype of a card app dispute tracker">
+      <!-- Home -->
+      <section class="screen" id="s-home">
+        <div class="bar"><b>My card</b></div>
+        <div class="sbody">
+          <div class="cardface"><span class="mono">Credit card ·· 4821 · sample data</span><span class="mono">Available limit</span><b>₹1,46,250</b></div>
+          <div class="banner" id="refund-banner"><span><b>₹1,240 credit balance</b> is sitting on your card from a refund.</span><button class="btn" type="button" data-go="s-refund">Send it to my bank</button></div>
+          <button class="row" type="button" data-go="s-list"><span>Disputes<small>Track every charge you've questioned</small></span><span class="pill" id="home-pill">1 open</span></button>
+          <div class="eyebrow">Recent transactions</div>
+          <button class="row" type="button" data-go="s-new"><span>ShopKart Online<small>8 Nov · tap to question this charge</small></span><span class="amt">₹2,199</span></button>
+          <button class="row" type="button" data-go="s-new"><span>Metro Fuel, Sector 18<small>7 Nov</small></span><span class="amt">₹1,800</span></button>
+        </div>
+      </section>
+
+      <!-- Dispute list -->
+      <section class="screen" id="s-list" hidden>
+        <div class="bar"><button type="button" data-go="s-home">← Back</button><b>Disputes</b></div>
+        <div class="sbody">
+          <button class="row" type="button" data-go="s-detail"><span>Duplicate charge · ShopKart<small>DSP-20418 · raised 2 Nov</small></span><span class="pill" id="list-pill">Update by 14 Nov</span></button>
+          <div id="new-dispute-row" hidden><button class="row" type="button" data-go="s-done"><span>Not received · ShopKart<small>DSP-20431 · raised today</small></span><span class="pill">Update by 13 Nov</span></button></div>
+          <button class="btn ghost full" type="button" data-go="s-new">Question another charge</button>
+        </div>
+      </section>
+
+      <!-- Dispute detail -->
+      <section class="screen" id="s-detail" hidden>
+        <div class="bar"><button type="button" data-go="s-list">← Back</button><b>DSP-20418</b></div>
+        <div class="sbody">
+          <div><b>Duplicate charge · ShopKart</b><div class="note">₹3,499 charged twice on 31 Oct</div></div>
+          <div class="sla" id="sla"><span id="sla-text">Next update by</span><b id="sla-date">14 Nov · 5 days</b></div>
+          <ol class="stages">
+            <li class="done"><span class="dot">✓</span><span>Raised<small>2 Nov · you sent 1 document</small></span></li>
+            <li class="done"><span class="dot">✓</span><span>Temporary credit of ₹3,499<small>4 Nov · you won't pay interest on it while we check</small></span></li>
+            <li class="now"><span class="dot"></span><span>Sent to merchant via card network<small id="stage-note">5 Nov · merchant has up to 9 days to reply</small></span></li>
+            <li><span class="dot"></span><span>Resolved<small>We'll confirm the outcome here and by SMS</small></span></li>
+          </ol>
+          <div class="row" style="cursor:default"><span>receipt-31oct.jpg<small>Uploaded 2 Nov</small></span><span class="pill ok">Received</span></div>
+          <button class="btn ghost full" type="button" id="add-doc">Add another document</button>
+          <p class="note" id="doc-note" hidden>Prototype: a file picker would open here.</p>
+        </div>
+      </section>
+
+      <!-- Raise dispute -->
+      <section class="screen" id="s-new" hidden>
+        <div class="bar"><button type="button" data-go="s-home">← Back</button><b>Question a charge</b></div>
+        <div class="sbody">
+          <div class="row" style="cursor:default"><span>ShopKart Online<small>8 Nov</small></span><span class="amt">₹2,199</span></div>
+          <div class="eyebrow">What went wrong?</div>
+          <div class="chips" id="reasons">
+            <button type="button" aria-pressed="false">Charged twice</button>
+            <button type="button" aria-pressed="false">Item not received</button>
+            <button type="button" aria-pressed="false">Refund not credited</button>
+            <button type="button" aria-pressed="false">I didn't make this</button>
+          </div>
+          <p class="note">"I didn't make this" blocks the card first, then raises the dispute.</p>
+          <button class="btn full" type="button" id="submit" disabled>Raise dispute</button>
+        </div>
+      </section>
+
+      <!-- Confirmation -->
+      <section class="screen" id="s-done" hidden>
+        <div class="bar"><button type="button" data-go="s-home">← Home</button><b>Dispute raised</b></div>
+        <div class="sbody">
+          <div class="sla"><span>Reference</span><b>DSP-20431</b></div>
+          <p><b>We'll update you by 13 Nov.</b> You'll get an SMS and a notification at every step.</p>
+          <ol class="stages">
+            <li class="now"><span class="dot"></span><span>Raised<small>Today · reason: <span id="chosen">Item not received</span></small></span></li>
+            <li><span class="dot"></span><span>Under review<small>Within 2 working days</small></span></li>
+            <li><span class="dot"></span><span>Resolved<small>We'll confirm the outcome here</small></span></li>
+          </ol>
+          <button class="btn ghost full" type="button" data-go="s-list">See all disputes</button>
+        </div>
+      </section>
+
+      <!-- Refund credit balance -->
+      <section class="screen" id="s-refund" hidden>
+        <div class="bar"><button type="button" data-go="s-home">← Back</button><b>Credit balance</b></div>
+        <div class="sbody">
+          <p>You have <b>₹1,240</b> more on your card than you owe, from a refund on 28 Oct.</p>
+          <div class="row" style="cursor:default"><span>Send to<small>Savings account ·· 3307 (linked)</small></span><span class="pill ok">Verified</span></div>
+          <button class="btn full" type="button" id="refund-go">Send ₹1,240 now</button>
+          <p class="note">If you do nothing, we send it automatically to this account.</p>
+          <div class="sla" id="refund-done" hidden><span>Sent. Arrives within</span><b>1 working day</b></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="tests">
+    <div class="eyebrow">Prototype · Complaint Radar</div>
+    <h1 style="font-size:clamp(1.8rem,4vw,2.6rem)">Dispute tracker, clickable</h1>
+    <p class="muted">Tap through it like a cardholder would. All names and amounts are sample data. This is the solution from my Complaint Radar project, built so it can be put in front of real users.</p>
+    <div class="toggle"><span class="chip">Demo control</span><label><input type="checkbox" id="late"> Show the merchant step running late</label></div>
+    <h3>Usability test plan · 5 cardholders</h3>
+    <ol>
+      <li><b>Find status.</b> "You disputed a ShopKart charge last week. When will you hear back?" Success: names 14 Nov within 30 seconds, without help.</li>
+      <li><b>Understand money.</b> "Will you pay interest on the disputed ₹3,499?" Success: answers no, from the temporary-credit step.</li>
+      <li><b>Raise a dispute.</b> "Your 8 Nov ShopKart order never arrived. Report it." Success: completes in under 60 seconds.</li>
+      <li><b>Spot a delay.</b> With the late state on: "Is anything wrong with your dispute?" Success: notices the amber date unprompted.</li>
+      <li><b>Get money back.</b> "Is there any money the bank owes you?" Success: finds and sends the credit balance.</li>
+    </ol>
+    <p class="muted">For each task I'll record time, success, and the words people use. The design changes if two or more of five people fail the same task.</p>
+    <p class="src">Status of testing: not yet run. Results will be added here.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var screens=document.querySelectorAll(".screen");
+  function go(id){ screens.forEach(function(s){ s.hidden = s.id!==id; }); }
+  document.querySelectorAll("[data-go]").forEach(function(b){ b.addEventListener("click", function(){ go(b.dataset.go); }); });
+  var reasons=document.querySelectorAll("#reasons button"), submit=document.getElementById("submit"), chosen="";
+  reasons.forEach(function(b){ b.addEventListener("click", function(){ reasons.forEach(function(x){ x.setAttribute("aria-pressed","false"); }); b.setAttribute("aria-pressed","true"); chosen=b.textContent; submit.disabled=false; }); });
+  submit.addEventListener("click", function(){ document.getElementById("chosen").textContent=chosen; document.getElementById("new-dispute-row").hidden=false; document.getElementById("home-pill").textContent="2 open"; go("s-done"); });
+  document.getElementById("add-doc").addEventListener("click", function(){ document.getElementById("doc-note").hidden=false; });
+  document.getElementById("refund-go").addEventListener("click", function(e){ e.target.disabled=true; e.target.textContent="Sent"; document.getElementById("refund-done").hidden=false; document.getElementById("refund-banner").hidden=true; });
+  document.getElementById("late").addEventListener("change", function(e){
+    var late=e.target.checked, sla=document.getElementById("sla"), pill=document.getElementById("list-pill");
+    sla.classList.toggle("late", late); pill.classList.toggle("late", late);
+    document.getElementById("sla-text").textContent = late ? "Merchant reply overdue · we've chased it" : "Next update by";
+    document.getElementById("sla-date").textContent = late ? "New date 16 Nov" : "14 Nov · 5 days";
+    pill.textContent = late ? "Delayed · 16 Nov" : "Update by 14 Nov";
+    document.getElementById("stage-note").textContent = late ? "5 Nov · merchant missed its reply date; we've escalated" : "5 Nov · merchant has up to 9 days to reply";
+  });
+})();
+</script>
+
+  <footer><p>Built by Abhinav Kumar Tarkar as a portfolio project. Sample and public data only.</p></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Abhinav Tarkar Product Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Abhinav Kumar Tarkar — aspiring Product Manager in payments and cards. Banking operations, customer experience and data-led product thinking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: single reading column, statement-style data panels in mono; ink + cobalt with a signal amber */
+:root{
+  --bg:#f3f5f9; --surface:#ffffff; --ink:#111a2e; --muted:#566079; --line:#d9deea;
+  --accent:#2747d0; --accent-soft:#e3e8fb; --signal:#c77700; --signal-soft:#fbefd9; --good:#13795b;
+  --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem; --s8:4.5rem;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark }
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; margin:0;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:1040px; margin:0 auto}
+h1,h2,h3{font-family:var(--f-display); line-height:1.12; text-wrap:balance; margin:0; letter-spacing:-.015em}
+h1{font-size:clamp(2.2rem, 5.5vw, 3.6rem); font-weight:700}
+h2{font-size:clamp(1.6rem, 3.4vw, 2.2rem); font-weight:650}
+h3{font-size:1.25rem; font-weight:650}
+p{margin:0; max-width:65ch}
+a{color:var(--accent); text-underline-offset:3px}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+.eyebrow{font-family:var(--f-mono); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.mono{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+section{padding-block:var(--s8) 0}
+.sec-head{display:grid; gap:var(--s3); margin-bottom:var(--s6)}
+.chip{display:inline-flex; align-items:center; gap:.35em; font-family:var(--f-mono); font-size:.72rem; letter-spacing:.04em;
+  padding:.2rem .55rem; border-radius:999px; border:1px solid var(--line); color:var(--muted); background:var(--surface); white-space:nowrap}
+.chip.work{border-color:transparent; background:var(--accent-soft); color:var(--accent)}
+.chip.learn{border-color:transparent; background:var(--signal-soft); color:var(--signal)}
+.btn{display:inline-flex; align-items:center; gap:.4rem; font:600 .92rem var(--f-body); padding:.6rem 1rem; border-radius:8px;
+  border:1px solid var(--accent); background:var(--accent); color:var(--bg); text-decoration:none; cursor:pointer}
+.btn.ghost{background:transparent; color:var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.chart{width:100%; height:auto; display:block}
+.chart text{fill:var(--muted); font-family:var(--f-mono); font-size:11px}
+.chart .grid{stroke:var(--line); stroke-width:1}
+.src{font-size:.8rem; color:var(--muted)}
+footer{padding-block:var(--s7); margin-top:var(--s8); border-top:1px solid var(--line); color:var(--muted); font-size:.85rem}
+@media (prefers-reduced-motion: no-preference){ .rise{animation:rise .6s ease-out both} @keyframes rise{from{transform:translateY(8px)}to{transform:none}} }
+
+/* ---- page specific ---- */
+.top{display:flex; justify-content:space-between; align-items:center; gap:var(--s4); padding-block:var(--s5); flex-wrap:wrap}
+.brand{font-family:var(--f-display); font-weight:700; font-size:1.1rem; color:var(--ink); text-decoration:none; letter-spacing:-.01em}
+.brand span{color:var(--accent)}
+.nav{display:flex; gap:var(--s5); flex-wrap:wrap}
+.nav a{color:var(--muted); text-decoration:none; font-size:.92rem}
+.nav a:hover{color:var(--ink)}
+
+.hero{display:grid; grid-template-columns:1.25fr 1fr; gap:var(--s7); align-items:center; padding-block:var(--s7) var(--s4)}
+.hero > *{min-width:0}
+.hero h1 em{font-style:normal; color:var(--accent)}
+.lede{font-size:1.15rem; color:var(--muted); margin-top:var(--s5)}
+.hero .cta{display:flex; gap:var(--s3); flex-wrap:wrap; margin-top:var(--s6)}
+.role{display:flex; gap:var(--s2); flex-wrap:wrap; margin-top:var(--s4)}
+
+.statement{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:var(--s5); box-shadow:0 18px 40px -28px rgba(17,26,46,.45); position:relative; overflow:hidden}
+.statement::after{content:""; position:absolute; inset:0 0 auto 0; height:5px; background:linear-gradient(90deg, var(--accent) 0 62%, var(--signal) 62% 100%)}
+.st-head{display:flex; justify-content:space-between; gap:var(--s3); align-items:baseline; border-bottom:1px dashed var(--line); padding-bottom:var(--s3); flex-wrap:wrap}
+.st-head b{font-family:var(--f-display); font-size:1.05rem}
+.st-rows{display:grid; margin:var(--s3) 0}
+.st-row{display:flex; justify-content:space-between; gap:var(--s4); padding-block:var(--s2); border-bottom:1px solid var(--line); font-size:.93rem}
+.st-row span:last-child{font-family:var(--f-mono); font-variant-numeric:tabular-nums; font-weight:600; white-space:nowrap}
+.st-row .up{color:var(--good)}
+.st-total{display:flex; justify-content:space-between; align-items:center; gap:var(--s3); padding-top:var(--s3); flex-wrap:wrap}
+.st-total .mono{font-size:.75rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase}
+.st-total b{font-family:var(--f-display); font-size:1.15rem; color:var(--accent)}
+
+.bridges{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s5)}
+.bridge{display:grid; gap:var(--s2); align-content:start; padding-top:var(--s4); border-top:2px solid var(--ink)}
+.bridge .from{font-family:var(--f-mono); font-size:.78rem; color:var(--muted)}
+.bridge .from b{color:var(--accent); font-weight:600}
+
+.projects{display:grid; gap:var(--s6)}
+.proj{display:grid; grid-template-columns:1fr 1.1fr; gap:var(--s6); background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:var(--s6)}
+.proj > *{min-width:0}
+.proj .meta{display:flex; gap:var(--s2); flex-wrap:wrap}
+.proj .body{display:grid; gap:var(--s4); align-content:start}
+.kv{display:grid; grid-template-columns:auto 1fr; gap:var(--s2) var(--s4); font-size:.94rem}
+.kv dt{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); padding-top:.2rem}
+.kv dd{margin:0}
+.stat{font-family:var(--f-display); font-size:2rem; font-weight:700; color:var(--accent); line-height:1}
+.statline{display:flex; gap:var(--s5); flex-wrap:wrap}
+.statline > div{display:grid; gap:var(--s1)}
+.statline small{color:var(--muted); font-size:.8rem; max-width:22ch}
+.figure{display:grid; gap:var(--s2); align-content:start}
+.links{display:flex; gap:var(--s3); flex-wrap:wrap}
+
+.cases{display:grid; grid-template-columns:1fr 1fr; gap:var(--s5)}
+.case{display:grid; gap:var(--s3); align-content:start; padding:var(--s5); border-radius:var(--radius); background:var(--accent-soft)}
+.case:nth-child(2){background:var(--signal-soft)}
+.case .q{font-family:var(--f-display); font-size:1.2rem; font-weight:650}
+.case ul{margin:0; padding-left:1.1rem; display:grid; gap:var(--s1); font-size:.95rem}
+
+.timeline{display:grid; gap:0}
+.job{display:grid; grid-template-columns:180px 1fr; gap:var(--s5); padding-block:var(--s5); border-top:1px solid var(--line)}
+.job > *{min-width:0}
+.job .when{font-family:var(--f-mono); font-size:.85rem; color:var(--muted)}
+.job ul{margin:var(--s2) 0 0; padding-left:1.1rem; display:grid; gap:var(--s1)}
+.job .pm{color:var(--accent); font-size:.88rem; margin-top:var(--s2)}
+
+.steps{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:var(--s5)}
+.steps li{display:grid; gap:var(--s2); align-content:start; padding:var(--s5); border:1px solid var(--line); border-radius:var(--radius); background:var(--surface)}
+.steps .n{width:32px; height:32px; border-radius:50%; display:grid; place-items:center; background:var(--accent-soft); color:var(--accent); font-weight:600}
+.steps a{font-weight:600; font-size:.92rem; margin-top:var(--s2)}
+.toolkit{display:grid; grid-template-columns:repeat(4,1fr); gap:var(--s5)}
+.toolkit > div{display:grid; gap:var(--s3); align-content:start}
+.toolkit h3{font-size:1rem; font-family:var(--f-mono); font-weight:600; letter-spacing:.06em; text-transform:uppercase}
+.tk{display:flex; justify-content:space-between; gap:var(--s2); align-items:center; font-size:.93rem; border-bottom:1px solid var(--line); padding-bottom:var(--s2)}
+.legend{display:flex; gap:var(--s3); flex-wrap:wrap; align-items:center}
+
+.contact{display:grid; grid-template-columns:1.2fr 1fr; gap:var(--s6); align-items:center; background:var(--ink); color:var(--bg); border-radius:14px; padding:var(--s7) var(--s6)}
+.contact > *{min-width:0}
+.contact h2{color:var(--bg)}
+.contact p{color:var(--bg); opacity:.78; margin-top:var(--s3)}
+.cline{display:flex; justify-content:space-between; align-items:center; gap:var(--s3); padding-block:var(--s3); border-bottom:1px solid color-mix(in srgb, var(--bg) 22%, transparent); flex-wrap:wrap}
+.cline .mono{font-size:.95rem; user-select:all; overflow-wrap:anywhere}
+.copy{font:600 .8rem var(--f-mono); padding:.35rem .7rem; border-radius:6px; border:1px solid color-mix(in srgb, var(--bg) 40%, transparent); background:transparent; color:var(--bg); cursor:pointer}
+.clinks{display:flex; gap:var(--s4); flex-wrap:wrap; margin-top:var(--s4)}
+.clinks a{color:var(--bg)}
+
+@media (max-width: 860px){
+  .hero, .proj, .cases, .contact{grid-template-columns:1fr}
+  .bridges{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .toolkit{grid-template-columns:1fr 1fr}
+  .job{grid-template-columns:1fr; gap:var(--s2)}
+  .hero{gap:var(--s6)}
+}
+@media (max-width: 520px){
+  .toolkit{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .proj{padding:var(--s5)}
+  .contact{padding:var(--s6) var(--s5)}
+  .nav{gap:var(--s4)}
+}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top">Abhinav<span>.</span>pm</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work">Projects</a><a href="#cases">Case studies</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero" id="top">
+    <div class="rise">
+      <div class="eyebrow">Aspiring Product Manager · Payments &amp; Cards</div>
+      <h1 style="margin-top:var(--s4)">I've worked the <em>back office</em> of a credit card. Now I want to design the front.</h1>
+      <p class="lede">I'm Abhinav Tarkar, a mechanical engineer turned banking operations professional. At Axis Bank I processed credit-card loan products against SLAs; before that I handled 500+ customer conversations a month. I turn what breaks in operations into product decisions, and I back them with public data.</p>
+      <div class="role"><span class="chip work">Targeting: Product Analyst · APM · Product Ops</span><span class="chip">Noida, India</span><span class="chip">Open to Mumbai · Bengaluru · Gurugram</span><span class="chip">English · Hindi</span></div>
+      <div class="cta"><a class="btn" href="#work">See my product work</a><a class="btn ghost" href="#contact">Get in touch</a></div>
+    </div>
+
+    <aside class="statement rise" aria-label="Career summary styled as a card statement">
+      <div class="st-head"><b>Career statement</b><span class="mono muted" style="font-size:.78rem">Apr 2022 – Jun 2026</span></div>
+      <div class="st-rows">
+        <div class="st-row"><span>Customer interactions handled</span><span>500+/mo</span></div>
+        <div class="st-row"><span>Average response time</span><span class="up">−30%</span></div>
+        <div class="st-row"><span>Associates mentored</span><span>7–8</span></div>
+        <div class="st-row"><span>Credit-card LOP cases</span><span>end-to-end</span></div>
+        <div class="st-row"><span>Public-data product projects</span><span>3</span></div>
+        <div class="st-row"><span>Clickable prototype</span><span>1</span></div>
+        <div class="st-row"><span>SQL queries on the data</span><span>6</span></div>
+        <div class="st-row"><span>Business case studies</span><span>2</span></div>
+      </div>
+      <div class="st-total"><span class="mono">Next due</span><b>Product Manager role</b></div>
+    </aside>
+  </div>
+
+  <section id="why">
+    <div class="sec-head"><div class="eyebrow">Why product</div><h2>Three things I bring that most PM candidates have to learn on the job</h2></div>
+    <div class="bridges">
+      <div class="bridge"><div class="from"><b>Operations</b> → product</div><h3>I know where processes break</h3><p class="muted">Validating Loan-on-Product cases at Axis Bank showed me the hand-offs between credit, operations and service where turnaround is lost. Those hand-offs are where product fixes pay off.</p></div>
+      <div class="bridge"><div class="from"><b>Customer care</b> → product</div><h3>I've done the user research</h3><p class="muted">Thousands of customer conversations taught me how people describe a problem before they know what they need. I reduced response time by 30% by re-prioritising the workflow around them.</p></div>
+      <div class="bridge"><div class="from"><b>Engineering</b> → product</div><h3>I think in systems and constraints</h3><p class="muted">A B.Tech in Mechanical Engineering trained me to define requirements, respect tolerances and test before shipping. In banking the tolerances are RBI directions and SLAs.</p></div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="sec-head"><div class="eyebrow">How I work</div><h2>From a number in a report to something people can click</h2></div>
+    <ol class="steps">
+      <li><span class="n mono">1</span><h3>Find the signal</h3><p class="muted">Start with public data and one surprising number. Card base up 7.4%, spend per card down 5%.</p><a href="#work">3 dashboards</a></li>
+      <li><span class="n mono">2</span><h3>Check it with people</h3><p class="muted">Write down what I believe, how I'll test it and what would change my mind.</p><a href="projects/card-pulse/index.html#discovery">Interview guide</a></li>
+      <li><span class="n mono">3</span><h3>Prototype the fix</h3><p class="muted">Build the smallest clickable version and a task-based test plan.</p><a href="projects/complaint-radar/prototype.html">Dispute tracker prototype</a></li>
+      <li><span class="n mono">4</span><h3>Measure it</h3><p class="muted">One north-star metric, input metrics and guardrails, queried from the data.</p><a href="sql/index.html">SQL workbench</a></li>
+    </ol>
+  </section>
+
+  <section id="work">
+    <div class="sec-head"><div class="eyebrow">Product projects · built on public RBI and NPCI data</div><h2>Each project starts with a real data signal and ends with a product I'd ship</h2></div>
+    <div class="projects">
+
+      <article class="proj">
+        <div class="body">
+          <div class="meta"><span class="chip work">Activation</span><span class="chip">RBI card statistics</span><span class="chip">Jan–Sep 2026</span></div>
+          <h3>Card Pulse: banks are issuing cards faster than people use them</h3>
+          <dl class="kv">
+            <dt>Signal</dt><dd>India added 8.65 million credit cards between January and September 2026, but monthly spend per card slipped from ₹17,145 to ₹16,281.</dd>
+            <dt>Problem</dt><dd>New cardholders aren't building a habit. Each dormant card costs the bank acquisition spend and earns nothing.</dd>
+            <dt>Product</dt><dd>A 90-day activation journey: a first-spend nudge, a category-based welcome offer and a UPI-linked option for small daily payments.</dd>
+            <dt>Next</dt><dd>10 interviews with new cardholders who rarely use their card. Guide and hypotheses ready.</dd>
+          </dl>
+          <div class="links"><a class="btn" href="projects/card-pulse/index.html">Open dashboard</a><a class="btn ghost" href="projects/card-pulse/index.html#discovery">Discovery plan</a></div>
+        </div>
+        <div class="figure">
+          <div class="statline"><div><span class="stat mono">+7.4%</span><small>cards outstanding, Jan → Sep 2026</small></div><div><span class="stat mono" style="color:var(--signal)">−5.0%</span><small>monthly spend per card, same period</small></div></div>
+          <div id="c1"></div>
+          <p class="src">Index, January 2026 = 100. Source: RBI bank-wise ATM/POS/card statistics, as reported.</p>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="body">
+          <div class="meta"><span class="chip work">Payments strategy</span><span class="chip">NPCI UPI statistics</span><span class="chip">Jan–Oct 2026</span></div>
+          <h3>UPI × Credit: where card issuers should meet small-ticket spending</h3>
+          <dl class="kv">
+            <dt>Signal</dt><dd>UPI hit a record 25.47 billion transactions in October 2026 while its average ticket fell to about ₹1,238. Every month it moves roughly 14× the value of all credit-card spending.</dd>
+            <dt>Problem</dt><dd>Everyday spending happens at the QR code, but only RuPay credit cards can run on UPI. Issuers on other networks miss that frequency.</dd>
+            <dt>Product</dt><dd>A "credit on QR" proposition for a premium issuer: a RuPay companion card, rewards tuned for sub-₹2,000 spends and one shared credit limit.</dd>
+            <dt>Next</dt><dd>A fake-door test of the riskiest belief: do premium cardholders want rewards on small QR payments?</dd>
+          </dl>
+          <div class="links"><a class="btn" href="projects/upi-credit/index.html">Open dashboard</a><a class="btn ghost" href="projects/upi-credit/index.html#discovery">Discovery plan</a></div>
+        </div>
+        <div class="figure">
+          <div class="statline"><div><span class="stat mono">25.47 bn</span><small>UPI transactions, Oct 2026</small></div><div><span class="stat mono" style="color:var(--signal)">₹1,238</span><small>average UPI ticket, Oct 2026</small></div></div>
+          <div id="c2"></div>
+          <p class="src">Monthly UPI volume, billions. Source: NPCI monthly product statistics.</p>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="body">
+          <div class="meta"><span class="chip work">Customer experience</span><span class="chip">RBI Ombudsman report</span><span class="chip">FY 2024-25</span></div>
+          <h3>Complaint Radar: designing credit-card disputes out of the ombudsman queue</h3>
+          <dl class="kv">
+            <dt>Signal</dt><dd>Credit cards became the second-largest complaint category at the RBI Ombudsman in FY25, with 50,811 complaints, up 20% in a year.</dd>
+            <dt>Problem</dt><dd>Customers escalate when they can't see what is happening to a dispute, refund or charge. I answered these questions every day in customer care.</dd>
+            <dt>Product</dt><dd>An in-app dispute tracker with stage-by-stage status, SLA countdowns and automatic refund of credit balances, the issue behind an RBI penalty on one issuer in 2025.</dd>
+            <dt>Built</dt><dd>A clickable prototype of the tracker, with a 5-task usability test plan.</dd>
+          </dl>
+          <div class="links"><a class="btn" href="projects/complaint-radar/prototype.html">Try the prototype</a><a class="btn ghost" href="projects/complaint-radar/index.html">Open dashboard</a></div>
+        </div>
+        <div class="figure">
+          <div class="statline"><div><span class="stat mono" style="color:var(--signal)">17.15%</span><small>share of ombudsman complaints, credit cards</small></div><div><span class="stat mono">+20.0%</span><small>credit-card complaints, year on year</small></div></div>
+          <div id="c3"></div>
+          <p class="src">Share of complaints received by RBI Ombudsman offices, FY25. Source: RBI Annual Report of the Ombudsman Scheme 2024-25.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="cases">
+    <div class="sec-head"><div class="eyebrow">Case studies</div><h2>How I break down a business</h2></div>
+    <div class="cases">
+      <article class="case">
+        <div class="eyebrow">Startup · Fintech</div>
+        <div class="q">CRED: can a rewards app for good borrowers become a profitable lender?</div>
+        <ul>
+          <li>FY25 operating revenue of ₹2,735 crore, up 16%, with operating loss cut 51% to ₹298 crore.</li>
+          <li>Engagement is the engine: about 45% of active members use three or more products.</li>
+          <li>My take: lending pays the bills, so the product roadmap should protect trust in credit decisions above new lifestyle features.</li>
+        </ul>
+        <a class="btn ghost" href="case-studies/cred.html" style="justify-self:start">Read the case study</a>
+      </article>
+      <article class="case">
+        <div class="eyebrow">Business · Global card network</div>
+        <div class="q">American Express in India: winning premium customers in a UPI-first market</div>
+        <ul>
+          <li>RBI barred new customer onboarding from May 2021 over data storage rules and lifted it in August 2022.</li>
+          <li>Global networks still can't route credit cards over UPI, where most everyday payments now happen.</li>
+          <li>My take: compete on service and travel value at the top, and partner for the QR moment instead of fighting it.</li>
+        </ul>
+        <a class="btn ghost" href="case-studies/amex-india.html" style="justify-self:start">Read the case study</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head"><div class="eyebrow">Experience</div><h2>Where the product instincts came from</h2></div>
+    <div class="timeline">
+      <div class="job">
+        <div class="when">Feb 2026 – Jun 2026</div>
+        <div>
+          <h3>Assistant Manager, Retail Operations · Axis Bank</h3>
+          <ul>
+            <li>Processed and validated Loan-on-Product (LOP) cases linked to credit cards end to end, within defined SLAs.</li>
+            <li>Streamlined banking workflows and maintained adherence to regulatory and internal compliance requirements.</li>
+            <li>Worked with credit, operations and service delivery teams to improve turnaround and client satisfaction.</li>
+            <li>Built MIS reports for leadership in advanced Excel and CRM tools.</li>
+          </ul>
+          <p class="pm">Product lens: requirements, compliance constraints, cross-functional delivery.</p>
+        </div>
+      </div>
+      <div class="job">
+        <div class="when">Apr 2022 – Jun 2024</div>
+        <div>
+          <h3>Customer Care Executive · iEnergizer</h3>
+          <ul>
+            <li>Managed 500+ customer interactions a month across email and phone while meeting quality and turnaround benchmarks.</li>
+            <li>Cut average response time by 30% by restructuring workflow priorities and channel allocation.</li>
+            <li>Kept audit-ready case histories in Zendesk and coordinated escalations with technical, billing and operations teams.</li>
+            <li>Mentored 7–8 associates on onboarding, process training and quality, and ranked among top CSAT performers.</li>
+          </ul>
+          <p class="pm">Product lens: user research, prioritisation, measuring outcomes.</p>
+        </div>
+      </div>
+      <div class="job">
+        <div class="when">Graduated 2020</div>
+        <div>
+          <h3>B.Tech, Mechanical Engineering · GLA University, Mathura</h3>
+          <p class="pm">Product lens: systems thinking, specifications, testing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="toolkit">
+    <div class="sec-head">
+      <div class="eyebrow">Toolkit</div><h2>What I use today, and what I'm building</h2>
+      <div class="legend"><span class="chip work">Working</span><span class="muted" style="font-size:.88rem">used on the job or in these projects</span><span class="chip learn">Building</span><span class="muted" style="font-size:.88rem">in active practice</span></div>
+    </div>
+    <div class="toolkit">
+      <div><h3>Product</h3>
+        <div class="tk">Problem framing<span class="chip work">Working</span></div>
+        <div class="tk">User journey mapping<span class="chip work">Working</span></div>
+        <div class="tk">PRDs &amp; user stories<span class="chip work">Working</span></div>
+        <div class="tk">Prioritisation (RICE)<span class="chip work">Working</span></div>
+        <div class="tk">Discovery interviews<span class="chip learn">Building</span></div>
+        <div class="tk">Usability testing<span class="chip learn">Building</span></div>
+      </div>
+      <div><h3>Data</h3>
+        <div class="tk">Advanced Excel &amp; MIS<span class="chip work">Working</span></div>
+        <div class="tk">KPI &amp; funnel metrics<span class="chip work">Working</span></div>
+        <div class="tk">Python (pandas)<span class="chip learn">Building</span></div>
+        <div class="tk">SQL<span class="chip learn">Building</span></div>
+        <div class="tk">Power BI / Tableau<span class="chip learn">Building</span></div>
+        <div class="tk">A/B test design<span class="chip learn">Building</span></div>
+      </div>
+      <div><h3>Domain</h3>
+        <div class="tk">Credit card lifecycle<span class="chip work">Working</span></div>
+        <div class="tk">Loan-on-Product (EMI)<span class="chip work">Working</span></div>
+        <div class="tk">SLA &amp; escalations<span class="chip work">Working</span></div>
+        <div class="tk">RBI compliance basics<span class="chip work">Working</span></div>
+        <div class="tk">Customer escalations<span class="chip work">Working</span></div>
+        <div class="tk">UPI &amp; payment rails<span class="chip learn">Building</span></div>
+      </div>
+      <div><h3>Tools</h3>
+        <div class="tk">Zendesk &amp; CRM<span class="chip work">Working</span></div>
+        <div class="tk">GitHub Pages<span class="chip work">Working</span></div>
+        <div class="tk">Jira &amp; Confluence<span class="chip learn">Building</span></div>
+        <div class="tk">Figma wireframes<span class="chip learn">Building</span></div>
+        <div class="tk">Clickable prototypes<span class="chip learn">Building</span></div>
+        <div class="tk">Agile / Scrum<span class="chip learn">Building</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <div>
+        <div class="eyebrow" style="color:var(--bg); opacity:.7">Contact</div>
+        <h2 style="margin-top:var(--s3)">Hiring for payments, cards or banking product?</h2>
+        <p>I'm looking for Product Analyst, Associate Product Manager and Product Operations roles in cards and payments, where operations knowledge is an advantage. I can start immediately.</p>
+        <div class="clinks" id="social"></div>
+      </div>
+      <div>
+        <div class="cline"><span class="mono" id="em">abhinavspambox@gmail.com</span><button class="copy" type="button" data-copy="em">Copy</button></div>
+        <div class="cline"><span class="mono" id="ph">+91 99977 63028</span><button class="copy" type="button" data-copy="ph">Copy</button></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Data in these projects comes from public RBI and NPCI releases as reported in the press; every row links to its source in the project files, and the <a href="sql/index.html">SQL workbench</a> reproduces the numbers. Figures are for portfolio analysis only. The product proposals are my own ideas and do not reflect any employer's plans.</p>
+  </footer>
+</div>
+
+<script>
+/* Tiny dependency-free SVG charts. Colors come from CSS tokens so both themes work. */
+(function(){
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, parent){ var n=document.createElementNS(NS, tag); for(var k in attrs){ n.setAttribute(k, attrs[k]); } if(parent) parent.appendChild(n); return n; }
+  function txt(parent, x, y, s, anchor){ var t=el("text",{x:x,y:y,"text-anchor":anchor||"start"},parent); t.textContent=s; return t; }
+  function niceTicks(min, max, n){
+    var span=max-min||1, step=Math.pow(10, Math.floor(Math.log10(span/n))), err=span/n/step;
+    if(err>=7.5) step*=10; else if(err>=3.5) step*=5; else if(err>=1.5) step*=2;
+    var lo=Math.floor(min/step)*step, hi=Math.ceil(max/step)*step, out=[];
+    for(var v=lo; v<=hi+step/2; v+=step) out.push(+v.toFixed(6));
+    return out;
+  }
+  function fitW(host, o){ return o.width || Math.min(640, Math.max(300, host.clientWidth || 640)); }
+  function svgFor(host, w, h, label){ host.innerHTML=""; return el("svg",{viewBox:"0 0 "+w+" "+h, class:"chart", role:"img", "aria-label":label||""}, host); }
+
+  window.lineChart = function(host, o){
+    var W=fitW(host,o), H=o.height||260, m={t:16,r:o.right||60,b:28,l:o.left||44};
+    var all=[]; o.series.forEach(function(s){ all=all.concat(s.values); });
+    var ticks=niceTicks(o.min!=null?o.min:Math.min.apply(null,all), o.max!=null?o.max:Math.max.apply(null,all), o.ticks||4);
+    var y0=ticks[0], y1=ticks[ticks.length-1], n=o.labels.length;
+    var X=function(i){ return m.l + i*(W-m.l-m.r)/(n-1); }, Y=function(v){ return H-m.b - (v-y0)/(y1-y0)*(H-m.t-m.b); };
+    var svg=svgFor(host,W,H,o.label);
+    ticks.forEach(function(t){ el("line",{x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t),class:"grid"},svg); txt(svg,m.l-8,Y(t)+4,(o.fmt||String)(t),"end"); });
+    o.labels.forEach(function(l,i){ if(n<=10 || i%2===0) txt(svg,X(i),H-8,l,"middle"); });
+    o.series.forEach(function(s){
+      var d=s.values.map(function(v,i){ return (i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1); }).join(" ");
+      if(s.area){ el("path",{d:d+" L"+X(n-1)+" "+(H-m.b)+" L"+X(0)+" "+(H-m.b)+" Z", style:"fill:var("+s.color+");opacity:.10"},svg); }
+      el("path",{d:d, style:"fill:none;stroke:var("+s.color+");stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round"+(s.dash?";stroke-dasharray:5 5":"")},svg);
+      var lv=s.values[n-1];
+      el("circle",{cx:X(n-1),cy:Y(lv),r:4.5,style:"fill:var("+s.color+");stroke:var(--surface);stroke-width:2"},svg);
+      var t=txt(svg,X(n-1)+8,Y(lv)+4,(s.endFmt||o.fmt||String)(lv)); t.setAttribute("style","fill:var("+s.color+");font-weight:600");
+    });
+  };
+
+  window.barChart = function(host, o){
+    var W=fitW(host,o), H=o.height||240, m={t:22,r:12,b:28,l:o.left||40};
+    var ticks=niceTicks(0, Math.max.apply(null,o.values), o.ticks||4), y1=ticks[ticks.length-1], n=o.values.length;
+    var bw=(W-m.l-m.r)/n, Y=function(v){ return H-m.b - v/y1*(H-m.t-m.b); };
+    var svg=svgFor(host,W,H,o.label);
+    ticks.forEach(function(t){ el("line",{x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t),class:"grid"},svg); txt(svg,m.l-8,Y(t)+4,(o.fmt||String)(t),"end"); });
+    o.values.forEach(function(v,i){
+      var hot = o.highlight!=null ? o.highlight===i : i===n-1;
+      el("rect",{x:m.l+i*bw+bw*.18, y:Y(v), width:bw*.64, height:H-m.b-Y(v), rx:3, style:"fill:var("+(hot?"--accent":"--line")+")"},svg);
+      if(hot || o.labelAll){ var t=txt(svg,m.l+i*bw+bw/2,Y(v)-6,(o.valFmt||o.fmt||String)(v),"middle"); if(hot) t.setAttribute("style","fill:var(--accent);font-weight:600"); }
+      txt(svg,m.l+i*bw+bw/2,H-8,o.labels[i],"middle");
+    });
+  };
+
+  window.hbarChart = function(host, o){
+    var W=fitW(host,o), rowH=o.rowH||40, lw=o.labelW||210, H=o.values.length*rowH+8, max=o.max||Math.max.apply(null,o.values);
+    var svg=svgFor(host,W,H,o.label);
+    o.values.forEach(function(v,i){
+      var y=i*rowH+6, hot=o.highlight===i, bw=(W-lw-70)*v/max;
+      var lt=txt(svg,0,y+rowH/2+1,o.labels[i]); lt.setAttribute("style","fill:var("+(hot?"--ink":"--muted")+");font-family:var(--f-body);font-size:13px"+(hot?";font-weight:600":""));
+      el("rect",{x:lw,y:y+6,width:W-lw-70,height:rowH-18,rx:3,style:"fill:var(--line);opacity:.45"},svg);
+      el("rect",{x:lw,y:y+6,width:Math.max(bw,2),height:rowH-18,rx:3,style:"fill:var("+(hot?"--signal":"--accent")+")"},svg);
+      var t=txt(svg,lw+bw+8,y+rowH/2+1,(o.fmt||String)(v)); t.setAttribute("style","fill:var("+(hot?"--signal":"--ink")+");font-weight:600");
+    });
+  };
+})();
+
+/* Add your profile links here. Empty links are hidden. */
+var PROFILE = { linkedin: "", github: "https://github.com/abhinavspambox" };
+
+(function(){
+  var cards=[116.65,117.70,118.63,119.44,120.50,121.60,122.86,124.05,125.30];
+  var spend=[2.00,1.77,2.19,1.97,2.02,2.01,2.08,2.02,2.04];
+  var ppc=spend.map(function(s,i){ return s*1e12/(cards[i]*1e6); });
+  var idx=function(a){ return a.map(function(v){ return +(v/a[0]*100).toFixed(1); }); };
+  var m=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"];
+  lineChart(document.getElementById("c1"), {labels:m, min:85, max:110, label:"Cards outstanding index versus spend per card index, January to September 2026",
+    series:[{values:idx(cards), color:"--accent", area:true}, {values:idx(ppc), color:"--signal"}], fmt:function(v){ return Math.round(v); }, endFmt:function(v){ return v.toFixed(1); }});
+  barChart(document.getElementById("c2"), {labels:["J","F","M","A","M","J","J","A","S","O"], values:[21.70,20.39,22.64,22.35,23.20,22.72,23.66,24.51,24.07,25.47],
+    fmt:function(v){ return v; }, valFmt:function(v){ return v.toFixed(2); }, label:"UPI monthly transactions in billions, January to October 2026"});
+  hbarChart(document.getElementById("c3"), {labels:["Loans & advances","Credit cards","Mobile / e-banking","Deposit accounts","All other grounds"], values:[29.25,17.15,16.86,16.84,19.90], highlight:1, labelW:150, max:32,
+    fmt:function(v){ return v.toFixed(2)+"%"; }, label:"Share of ombudsman complaints by category, FY25"});
+
+  var s=document.getElementById("social");
+  if(PROFILE.linkedin){ s.insertAdjacentHTML("beforeend",'<a href="'+PROFILE.linkedin+'" target="_blank" rel="noopener">LinkedIn</a>'); }
+  if(PROFILE.github){ s.insertAdjacentHTML("beforeend",'<a href="'+PROFILE.github+'" target="_blank" rel="noopener">GitHub</a>'); }
+
+  document.querySelectorAll(".copy").forEach(function(b){
+    b.addEventListener("click", function(){
+      var t=document.getElementById(b.dataset.copy), v=t.textContent.replace(/\s(?=\d)/g,"");
+      if(b.dataset.copy==="em") v=t.textContent;
+      var done=function(){ b.textContent="Copied"; setTimeout(function(){ b.textContent="Copy"; },1600); };
+      var fallback=function(){ var r=document.createRange(); r.selectNodeContents(t); var sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); b.textContent="Selected"; };
+      try{ navigator.clipboard.writeText(v).then(done, fallback); }catch(e){ fallback(); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
