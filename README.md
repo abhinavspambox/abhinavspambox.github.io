@@ -5,6 +5,8 @@ Banking operations at Axis Bank (credit-card Loan-on-Product processing) and cus
 
 **Live site:** https://abhinavspambox.github.io/
 
+![Portfolio home page](docs/screenshot.png)
+
 ## Projects (public RBI / NPCI data)
 
 | Project | Question | Data |
@@ -31,6 +33,10 @@ Figures were compiled from press reports of official releases. To verify or refr
 - RBI Bank-wise ATM/POS/Card Statistics: https://rbi.org.in/Scripts/ATMView.aspx
 - NPCI monthly metrics: https://www.npci.org.in/statistics/monthly-metrics
 - RBI Annual Report of the Ombudsman Scheme 2024-25: https://rbi.org.in/Scripts/PublicationsView.aspx?id=23441
+
+## Standalone repositories
+
+Each project also lives in its own repository: [card-pulse](https://github.com/abhinavspambox/card-pulse) · [upi-credit](https://github.com/abhinavspambox/upi-credit) · [complaint-radar](https://github.com/abhinavspambox/complaint-radar) · [sql-workbench](https://github.com/abhinavspambox/sql-workbench) · [india-payments-data](https://github.com/abhinavspambox/india-payments-data)
 
 ## Run locally
 

@@ -22,4 +22,4 @@ print(f"\nCards outstanding growth {first['month']} -> {last['month']}: {cg:+.1%
 print("\nIssuer spend per card, April 2026")
 for r in csv.DictReader(open(here / "issuers_apr2026.csv")):
     ppc = float(r["spend_inr_cr"]) * 1e7 / (float(r["cards_outstanding_mn"]) * 1e6)  # 1 crore = 10^7
-    print(f"  {r['issuer']:<12} Rs {ppc:,.0f}  (spend YoY {float(r['spend_yoy_pct']):+.1f}%)")
+    print(f"  {r['issuer']:<12} Rs {ppc:,.0f}  (spend YoY {float(r['spend_yoy_pct']):+.2f}%)")
