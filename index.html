@@ -390,7 +390,6 @@ footer{padding-block:var(--s7); margin-top:var(--s8); border-top:1px solid var(-
       </div>
       <div>
         <div class="cline"><span class="mono" id="em">abhinavspambox@gmail.com</span><button class="copy" type="button" data-copy="em">Copy</button></div>
-        <div class="cline"><span class="mono" id="ph">+91 99977 63028</span><button class="copy" type="button" data-copy="ph">Copy</button></div>
       </div>
     </div>
   </section>
@@ -484,8 +483,7 @@ var PROFILE = { linkedin: "", github: "https://github.com/abhinavspambox" };
 
   document.querySelectorAll(".copy").forEach(function(b){
     b.addEventListener("click", function(){
-      var t=document.getElementById(b.dataset.copy), v=t.textContent.replace(/\s(?=\d)/g,"");
-      if(b.dataset.copy==="em") v=t.textContent;
+      var t=document.getElementById(b.dataset.copy), v=t.textContent;
       var done=function(){ b.textContent="Copied"; setTimeout(function(){ b.textContent="Copy"; },1600); };
       var fallback=function(){ var r=document.createRange(); r.selectNodeContents(t); var sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); b.textContent="Selected"; };
       try{ navigator.clipboard.writeText(v).then(done, fallback); }catch(e){ fallback(); }
