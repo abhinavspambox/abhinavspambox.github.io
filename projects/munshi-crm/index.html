@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Munshi CRM</title>
+<meta name="description" content="Munshi CRM: a free, open-source sales CRM I designed and built. It turns every website signup into a lead, follows up automatically and helps small teams close deals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{color-scheme:light}
+/* Layout: single reading column, statement-style data panels in mono; ink + cobalt with a signal amber */
+:root{
+  --bg:#f3f5f9; --surface:#ffffff; --ink:#111a2e; --muted:#566079; --line:#d9deea;
+  --accent:#2747d0; --accent-soft:#e3e8fb; --signal:#c77700; --signal-soft:#fbefd9; --good:#13795b;
+  --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem; --s8:4.5rem;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0c1220; --surface:#141c2e; --ink:#e7ebf4; --muted:#9aa5bd; --line:#26314a;
+  --accent:#8ea2ff; --accent-soft:#1d2850; --signal:#f0a742; --signal-soft:#3a2b12; --good:#4fc79c; color-scheme:dark }
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; margin:0;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:1040px; margin:0 auto}
+h1,h2,h3{font-family:var(--f-display); line-height:1.12; text-wrap:balance; margin:0; letter-spacing:-.015em}
+h1{font-size:clamp(2.2rem, 5.5vw, 3.6rem); font-weight:700}
+h2{font-size:clamp(1.6rem, 3.4vw, 2.2rem); font-weight:650}
+h3{font-size:1.25rem; font-weight:650}
+p{margin:0; max-width:65ch}
+a{color:var(--accent); text-underline-offset:3px}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+.eyebrow{font-family:var(--f-mono); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.mono{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+section{padding-block:var(--s8) 0}
+.sec-head{display:grid; gap:var(--s3); margin-bottom:var(--s6)}
+.chip{display:inline-flex; align-items:center; gap:.35em; font-family:var(--f-mono); font-size:.72rem; letter-spacing:.04em;
+  padding:.2rem .55rem; border-radius:999px; border:1px solid var(--line); color:var(--muted); background:var(--surface); white-space:nowrap}
+.chip.work{border-color:transparent; background:var(--accent-soft); color:var(--accent)}
+.chip.learn{border-color:transparent; background:var(--signal-soft); color:var(--signal)}
+.btn{display:inline-flex; align-items:center; gap:.4rem; font:600 .92rem var(--f-body); padding:.6rem 1rem; border-radius:8px;
+  border:1px solid var(--accent); background:var(--accent); color:var(--bg); text-decoration:none; cursor:pointer}
+.btn.ghost{background:transparent; color:var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.chart{width:100%; height:auto; display:block}
+.chart text{fill:var(--muted); font-family:var(--f-mono); font-size:11px}
+.chart .grid{stroke:var(--line); stroke-width:1}
+.src{font-size:.8rem; color:var(--muted)}
+footer{padding-block:var(--s7); margin-top:var(--s8); border-top:1px solid var(--line); color:var(--muted); font-size:.85rem}
+@media (prefers-reduced-motion: no-preference){ .rise{animation:rise .6s ease-out both} @keyframes rise{from{transform:translateY(8px)}to{transform:none}} }
+
+:root{padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+.back{display:inline-block; padding-block:var(--s5); color:var(--muted); text-decoration:none; font-size:.92rem}
+.back:hover{color:var(--ink)}
+.phead{display:grid; gap:var(--s4); padding-block:var(--s4) var(--s6); border-bottom:1px solid var(--line)}
+.phead .lede{font-size:1.12rem; color:var(--muted)}
+.kpis{display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:var(--s5); padding-block:var(--s6)}
+.kpi{display:grid; gap:var(--s1); align-content:start}
+.kpi b{font-family:var(--f-mono); font-size:1.7rem; font-weight:600; color:var(--accent); line-height:1.1; font-variant-numeric:tabular-nums}
+.kpi.warn b{color:var(--signal)}
+.kpi span{font-size:.86rem; color:var(--muted)}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:var(--s5); display:grid; gap:var(--s3); min-width:0}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:var(--s5)}
+.prose{display:grid; gap:var(--s4)}
+.prose h2{margin-top:var(--s7)}
+.prose ul, .prose ol{margin:0; padding-left:1.2rem; display:grid; gap:var(--s2); max-width:68ch}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:.92rem; min-width:520px}
+th, td{text-align:left; padding:.6rem .7rem; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600}
+td.num{font-family:var(--f-mono); font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+.callout{border-left:3px solid var(--signal); background:var(--signal-soft); padding:var(--s4) var(--s5); border-radius:0 8px 8px 0; max-width:72ch}
+.story{font-family:var(--f-mono); font-size:.88rem; background:var(--accent-soft); padding:var(--s3) var(--s4); border-radius:8px}
+@media (max-width:760px){ .grid2{grid-template-columns:1fr} }
+
+.video{background:#0b1023; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); aspect-ratio:16/9}
+.video video{width:100%; height:100%; display:block}
+.links{display:flex; gap:var(--s3); flex-wrap:wrap}
+.feat{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:var(--s4)}
+.feat .panel p{font-size:.94rem; color:var(--muted)}
+.shots{display:grid; grid-template-columns:1fr 1fr; gap:var(--s4)}
+.shots figure{margin:0; display:grid; gap:var(--s2)}
+.shots img{width:100%; height:auto; display:block; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
+.shots figcaption{font-size:.85rem; color:var(--muted)}
+.decisions{display:grid; gap:var(--s4)}
+.decisions .panel h3{font-size:1.05rem}
+.decisions .panel p{font-size:.94rem}
+pre.code{margin:0; overflow-x:auto; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:var(--s4); font:.85rem/1.6 var(--f-mono)}
+@media (max-width:760px){ .shots{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../../index.html">← Back to portfolio</a>
+  <header class="phead">
+    <div class="eyebrow">Project 04 · Built and released · Free and open source</div>
+    <h1>Munshi CRM: a free CRM that turns website signups into sales</h1>
+    <p class="lede">Small businesses collect signups on their websites, then lose them in an inbox or a spreadsheet before anyone calls back. I designed and built a complete sales CRM that captures every signup as a lead, follows up automatically and tracks the deal to the end. It's open source and free for any number of users.</p>
+    <div class="links"><a class="btn" href="https://github.com/abhinavspambox/munshi-crm">View the code on GitHub</a><a class="btn ghost" href="#run">Run it in two minutes</a></div>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi"><b>0</b><span>runtime dependencies: it runs on Node.js alone</span></div>
+    <div class="kpi"><b>26</b><span>automated tests, including data isolation between companies</span></div>
+    <div class="kpi"><b>1 line</b><span>of code connects any website's forms</span></div>
+    <div class="kpi"><b>₹0</b><span>for any number of users, companies and records (MIT licence)</span></div>
+  </div>
+
+  <div class="video"><video controls preload="metadata" poster="poster.jpg" playsinline>
+    <source src="demo.mp4" type="video/mp4">
+    <track kind="captions" src="captions.vtt" srclang="en" label="English" default>
+  </video></div>
+  <p class="src" style="margin-top:var(--s2)">The full walkthrough, from a website signup to a won deal, about six minutes.</p>
+
+  <div class="prose">
+    <h2>The problem</h2>
+    <ul>
+      <li><b>Leads leak between the website and the sales team.</b> A signup form emails someone, the email gets buried, and the follow-up happens days later or not at all.</li>
+      <li><b>Follow-up depends on memory.</b> Without reminders and automatic emails, the second and third touch rarely happen.</li>
+      <li><b>Mainstream CRMs charge per user</b> and take setup work that a ten-person business doesn't have time for.</li>
+    </ul>
+
+    <h2>What I built</h2>
+  </div>
+  <div class="feat" style="margin-top:var(--s5)">
+    <div class="panel"><h3>Capture every signup</h3><p>One script tag copies every form on a website into the CRM, including WordPress, Webflow and Wix forms, with campaign tracking, duplicate merging and lead scoring.</p></div>
+    <div class="panel"><h3>Follow up automatically</h3><p>Sequences send a welcome email, a reminder and a call task, and stop on their own when the person replies, unsubscribes or becomes a customer.</p></div>
+    <div class="panel"><h3>Close the deal</h3><p>Drag-and-drop pipeline, quotes customers accept online with their name, and booking pages that turn a meeting request into a lead and a task.</p></div>
+    <div class="panel"><h3>Run the team</h3><p>Dashboard, forecast, funnel and leaderboard, automations, custom fields, roles, and alerts on Telegram, Slack or email.</p></div>
+    <div class="panel"><h3>Keep data safe</h3><p>Two-step sign-in, encrypted credentials, an audit log, and India DPDP Act tools: consent records, unsubscribe links, and export or erase a person's data.</p></div>
+    <div class="panel"><h3>Run it anywhere</h3><p>One company per server, or many companies on one server, each fully isolated. Works on phones and can be installed like an app.</p></div>
+  </div>
+
+  <section style="padding-top:var(--s7)">
+    <div class="shots">
+      <figure><img src="shots/leads.jpg" alt="Leads list with scores, sources and custom fields" loading="lazy" width="1440" height="900"><figcaption>Leads arrive scored, with their source and campaign.</figcaption></figure>
+      <figure><img src="shots/lead.jpg" alt="A lead's page with details, timeline and tasks" loading="lazy" width="1440" height="900"><figcaption>Everything about a lead on one page.</figcaption></figure>
+      <figure><img src="shots/pipeline.jpg" alt="Pipeline board with deals in stages" loading="lazy" width="1440" height="900"><figcaption>Deals that go quiet are flagged.</figcaption></figure>
+      <figure><img src="shots/quote.jpg" alt="A quote page the customer can accept online" loading="lazy" width="1440" height="900"><figcaption>Customers accept quotes online.</figcaption></figure>
+    </div>
+  </section>
+
+  <div class="prose">
+    <h2>Product decisions</h2>
+  </div>
+  <div class="decisions" style="margin-top:var(--s5)">
+    <div class="panel"><h3>Never touch the website's own form</h3><p>Businesses won't risk breaking their signup flow for a CRM. The capture script only reads a copy of the form when it's submitted, skips login and payment fields, and fails silently, so the website behaves exactly as before.</p></div>
+    <div class="panel"><h3>Make follow-up stop as well as start</h3><p>Automatic emails that keep going after someone has replied damage trust. Sequences stop by themselves on a logged call, an unsubscribe or a conversion, and the team can switch that off per sequence.</p></div>
+    <div class="panel"><h3>Let the customer close the loop</h3><p>Instead of a PDF that disappears into an inbox, quotes are a link. The salesperson is notified when it's opened and accepted, and the deal is marked won without anyone updating it.</p></div>
+    <div class="panel"><h3>Free, with no limits</h3><p>I first designed licence keys and paid plans, then removed them. The people who need this most are the smallest teams, and a free tool with no user cap removes the reason not to try it.</p></div>
+  </div>
+
+  <div class="prose">
+    <h2>How it's built</h2>
+    <ul>
+      <li>About 7,000 lines of JavaScript, HTML and CSS: a Node.js server using only built-in modules, SQLite, and a web app with no framework or build step.</li>
+      <li>26 automated tests, including tests that one company can never read or link to another company's records.</li>
+      <li>Security basics built in: scrypt password hashing, two-step sign-in, AES-256-GCM encryption for stored credentials, CSRF protection, a strict Content-Security-Policy and account lockout.</li>
+      <li>A REST API with documentation, personal API tokens and signed webhooks.</li>
+    </ul>
+
+    <h2 id="run">Run it yourself</h2>
+    <p>You need Node.js 22.5 or newer, nothing else.</p>
+  </div>
+  <pre class="code" style="margin-top:var(--s4)">git clone https://github.com/abhinavspambox/munshi-crm.git
+cd munshi-crm
+npm start        # then open http://localhost:3000</pre>
+
+  <footer>Munshi CRM is free and open source under the MIT licence. <a href="https://github.com/abhinavspambox/munshi-crm">Source code on GitHub</a>.</footer>
+</div>
+</body>
+</html>

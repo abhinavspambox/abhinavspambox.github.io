@@ -22,6 +22,10 @@ Each project folder has a dashboard (`index.html`), the dataset (`data.csv`, eve
 - [Discovery plans](projects/card-pulse/index.html#discovery): hypotheses, how each will be tested and what would change my mind, plus an interview guide.
 - [SQL workbench](sql/index.html): all datasets in SQLite with six queries (joins, CTEs, window functions). Run `python sql/run.py`.
 
+## Open-source product
+
+- [Munshi CRM](projects/munshi-crm/): a free, open-source sales CRM I designed and built. It captures every website signup as a lead, follows up automatically and tracks deals to the end. Demo video on the page; code at [abhinavspambox/munshi-crm](https://github.com/abhinavspambox/munshi-crm).
+
 ## Case studies
 
 - [CRED](case-studies/cred.html): can a rewards app for good borrowers become a profitable lender?
@@ -36,7 +40,7 @@ Figures were compiled from press reports of official releases. To verify or refr
 
 ## Standalone repositories
 
-Each project also lives in its own repository: [card-pulse](https://github.com/abhinavspambox/card-pulse) · [upi-credit](https://github.com/abhinavspambox/upi-credit) · [complaint-radar](https://github.com/abhinavspambox/complaint-radar) · [sql-workbench](https://github.com/abhinavspambox/sql-workbench) · [india-payments-data](https://github.com/abhinavspambox/india-payments-data)
+Each project also lives in its own repository: [card-pulse](https://github.com/abhinavspambox/card-pulse) · [upi-credit](https://github.com/abhinavspambox/upi-credit) · [complaint-radar](https://github.com/abhinavspambox/complaint-radar) · [sql-workbench](https://github.com/abhinavspambox/sql-workbench) · [india-payments-data](https://github.com/abhinavspambox/india-payments-data) · [munshi-crm](https://github.com/abhinavspambox/munshi-crm)
 
 ## Run locally
 
